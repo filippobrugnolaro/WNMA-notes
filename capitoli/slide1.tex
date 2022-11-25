@@ -1,0 +1,108 @@
+\section{Introduction}
+\subsection{Wireless Development}
+
+\textbf{Present}\\ it is constantly growing
+due to higher use of laptops or devices which can
+connect to internet. This implied an
+important growth of WiFi and n-G (3G, 4G, 5G)
+technologies also thanks to the emerging of
+apps with both low and high data demand.
+Smartphones open to new wireless scenarios such as
+AR, VR, MR, tele-presence\dots Other topics are
+Tactile Internet (combination of low latency, high
+availability, reliability and security) and Web
+Squared (integration of web 2.0 with technologies of
+sensing).
+
+\textbf{Future}\\ it is based on ubiquitous
+communication among people and devices. So this implies
+to take into account some requirements such as 
+bandwidth, delay, energy and connectivity.
+
+\textbf{Challenges}
+\begin{itemize}
+    \item Wireless channels are a difficult and
+    capacity-limited broadcast communications medium
+    (with respect to the wired counterpart);
+    \item Traffic patterns, user locations, and network
+    conditions are constantly changing;
+    \item Applications are heterogeneous with hard
+    constraints required by the network;
+    \item Energy and delay constraints change design
+    principles across all layers of the stack.
+\end{itemize}
+
+\textbf{Multimedia requirements}
+\vspace*{\fill}
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        & Voice & Data & Video & Game \\
+        \hline
+        Delay & low & irrelevant & low & low \\
+        \hline
+        Packet Loss & low & no & low & low \\
+        \hline
+        Bit Error Rate & $10^{-3}$ & $10^{-6}$ & $10^{-6}$ & $10^{-3}$ \\
+        \hline
+        Data Rate & 8-32 Kbps & 1-100 Mbps & 1-20 Mbps & 32-100 Kbps \\
+        \hline
+        Traffic & Continuous & Bursty & Continuous & Continuous \\
+        \hline
+    \end{tabular}
+\end{center}
+\vspace*{\fill}
+\vspace*{\fill}
+One-size-fits-all protocols and design
+\begin{itemize}
+    \item are used by wired networks $\rightarrow$ poor results;
+    \item do not work well $\rightarrow$ Crosslayer design.
+\end{itemize} 
+\vspace*{\fill}
+\newpage
+\textbf{Crosslayer Design}
+
+It's made of 5 layers:
+
+\begin{minipage}{.2 \linewidth}
+    \begin{tabular}{|c|}
+        \hline
+        Application\\
+        \hline
+        Network\\
+        \hline
+        Access\\
+        \hline
+        Link\\
+        \hline
+        Hardware\\
+        \hline
+    \end{tabular}
+\end{minipage}
+\begin{minipage}{.2 \linewidth}
+    \begin{tabular}{l}
+        $\rightarrow$ Meet delay, rate and energy constraints\\
+        $\rightarrow$ Adapt across design layers\\
+        $\rightarrow$ Reduce uncertainty through scheduling\\
+        $\rightarrow$ Provide robustness via diversity\\
+        \\
+    \end{tabular}
+\end{minipage}
+
+\subsection{Wireless Systems}
+There are different types of current wireless systems:
+\begin{itemize}
+    \item Cellular Systems;
+    \item Wireless LANs;
+    \item Satellite Systems;
+    \item Bluetooth;
+    \item Ad hoc Wireless Network;
+    \item Mesh Network;
+    \item Sensor Network;
+    \item Distributed Control Network;
+    \item MANET/VANET/FANET;
+    \item Underwater Networks;
+    \item RFID;
+    \item Nano-networks;
+    \item \dots
+\end{itemize}

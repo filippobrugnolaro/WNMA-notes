@@ -1,0 +1,99 @@
+% head, foot e stile
+\usepackage{lastpage} 		% info sul # dell'ultima pagina del documento
+\usepackage{fancyhdr} 		% per modificare dimensioni,margini, intestazioni e righe a piè di pagina
+\pagestyle{fancy}
+\fancypagestyle{plain}{
+    \fancyhf{} 				% cancella tutti i campi di intestazione e piè di pagina
+    \lhead{
+        WNMA Notes
+    }
+
+    \rhead{
+        \leftmark
+    }
+
+    \rfoot{
+        \thepage{}/\pageref{LastPage}
+    }
+
+    \renewcommand{\headrulewidth}{0.3pt}  
+    \renewcommand{\footrulewidth}{0.3pt}
+}
+\pagestyle{plain}
+
+% caratteri e margini
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphbox}		% permette di modificare i margini
+
+% immagini
+\usepackage{graphicx}       % permette di inserire delle immagini
+\usepackage{caption}        % numerazione figure e loro descrizione testuale
+\usepackage{subcaption}     % sottofigure numerabili
+\usepackage{float}  		% permette di inserire un # qualsiasi di figure fluttuanti
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{rotating} 		% permette di ruotare le immagini
+
+% math mode
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{listings} 		% permette di inserire degli spezzoni di codice
+
+% tabelle
+\usepackage{booktabs} 		% permette di poter usare delle liste nelle tabelle
+\usepackage{tabularx} 
+\usepackage{longtable} 		% una tabella può continuare su più pagine
+\usepackage[table]{xcolor} 	% rende disponibile l'utilizzo di un colore per lo sfondo delle celle di una tabella
+\usepackage{array}
+\renewcommand{\arraystretch}{1.6} % modifica altezza di una cella
+\usepackage{multirow}
+
+% tipo di colonna per le tabelle -> a capo con \newline
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% indice con i puntini
+\usepackage{tocloft}
+\renewcommand\cftsecleader{\cftdotfill{\cftdotsep}}
+
+% formattazione e indice
+\usepackage{appendix}		% aggiunge dei comandi per l'appendice
+\usepackage{parskip} 		% aiuta LaTeX a trovare il miglior stile per i page break
+\setcounter{secnumdepth}{5}	% numera i sottoparagrafi
+\setcounter{tocdepth}{5} 	% aggiunge all'indice i sottoparagrafi
+\usepackage{xr-hyper}		% riferimenti ipertestuali tra documenti
+\usepackage{hyperref}		% riferimenti ipertestuali
+
+% copertina
+\newcommand{\copertina}{
+	\begin{titlepage}
+		\begin{center}
+			\vspace*{\fill}
+
+			\begin{Huge}
+				\textbf{Wirless Networks And Mobile Applications} \\
+			\end{Huge}
+
+            \vspace*{4cm}
+
+            \LARGE{Year 2022-2023}
+
+            \vspace*{2cm}
+
+            \Large{Authors:}\\
+            \Large{\textit{Alessandro Cavaliere}}\\
+            \Large{\textit{Brugnolaro Filippo}}			
+
+            \vspace*{\fill}
+		\end{center}
+	\end{titlepage}
+}
+
+
+
