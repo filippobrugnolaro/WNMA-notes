@@ -21,6 +21,13 @@
 }
 \pagestyle{plain}
 
+\usepackage{xspace}
+\usepackage{fixfoot} % footnote
+
+% fixed footnote
+\DeclareFixedFootnote*{\footAP}{Access Point}
+%
+
 % caratteri e margini
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
@@ -35,6 +42,7 @@
 \usepackage{float}  		% permette di inserire un # qualsiasi di figure fluttuanti
 \usepackage[dvipsnames,table]{xcolor}
 \usepackage{rotating} 		% permette di ruotare le immagini
+\usepackage{fourier}
 
 % math mode
 \usepackage{amsmath}
@@ -52,6 +60,7 @@
 \usepackage{array}
 \renewcommand{\arraystretch}{1.6} % modifica altezza di una cella
 \usepackage{multirow}
+\usepackage{multicol}
 
 % tipo di colonna per le tabelle -> a capo con \newline
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}

@@ -96,6 +96,10 @@ There are different types of current wireless systems:
     \item Wireless LANs;
     \item Satellite Systems;
     \item Bluetooth;
+    \item \dots
+\end{itemize}
+And others which are emerging:
+\begin{itemize}
     \item Ad hoc Wireless Network;
     \item Mesh Network;
     \item Sensor Network;
@@ -106,3 +110,134 @@ There are different types of current wireless systems:
     \item Nano-networks;
     \item \dots
 \end{itemize}
+
+\subsubsection{Cellular Systems}
+Characteristics:
+\begin{itemize}
+    \setlength\itemsep{0.7em}
+    \item every geographic region is divided into cells
+    \begin{itemize}
+        \item [$\rightarrow$] more trasmission distance $\Rightarrow$
+        more power;
+    \end{itemize}
+    \item frequency/timeslots/codes are reused at separated locations;
+    \item co-channels interference between same color cells;
+    \item base stations has control of functions and handoff;
+    \item it can be shrinked to increase capacity and
+    relax networking burden.
+    \item it supports both voice (continuos) and data (bursty) requiring
+    different:
+    \begin{itemize}
+        \item[$\rightarrow$] access
+        \item[$\rightarrow$] routing strategies 
+    \end{itemize}
+    \item About connectivity:
+    \begin{itemize}
+        \item[$\rightarrow$] 3G: packet-based switching for both voice
+        and data (up to 7.2 Mbps)
+        \item[$\rightarrow$] 4G - 5G: are more focused on data
+        (high bandwidth, high reliability, low latency)
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Wireless Local Area Networks (WLANs)}
+
+Characteristics:
+\begin{itemize}
+    \item devices are connected (wireless) to an AP\footAP\\
+    $\rightarrow$ it is wired-connected to internet;
+    \item breaks data into packets ($\approx$ 1500 B) $\rightarrow$ AP\footAP
+    in even smaller size (500 B);
+    \item MAC layer control access to shared channel (random access);
+    \item backbone internet provides best-effort service
+    \begin{itemize}
+        \item[$\rightarrow$] bandwidth cannot be determined!
+        \item[$\rightarrow$] users pay subscription only for home-access
+        provider distance\\
+        $\Rightarrow$ it can be bottleneck if the backbone is faster
+        \item[$\rightarrow$] having QoS (subscription) here can increase digital gap
+        \vspace{0.1cm}
+        \item[] Server $\rightarrow$ Internet $\rightarrow$ Access Provider $\rightarrow$
+        Access Point $\rightarrow$
+        $\begin{cases}
+            \text{device1}&\\
+            \text{device2}&\\
+            \text{\dots}&\\
+            \text{deviceN}& 
+        \end{cases}$
+    \end{itemize}
+\end{itemize}
+
+There are different versions (802.11):
+\begin{itemize}
+    \item b (old gen): only 2.4 GHz, speed 1-11 Mbps, range 100m
+    \item g (legacy std): 2.4-5 GHz, speed up to 54 Mbps 
+    \item n (current gen): 2.4-5 GHz, speed up to 300 Mbps, multiple I/O
+    \item ac (emerging gen): 2.4-5 GHz, speed up to 500 Mbps, multiple I/O
+    \item s: used for mesh networks
+    \item p: used for vehicular networks
+\end{itemize}
+\newpage
+\subsubsection{Satellite Systems}
+Satellites haven't been used so much until starlink which is gaining popularity because,
+even if they make light pollution, they are very lightweight and easy to wake up.
+There are many types of satellites:
+\begin{itemize}
+    \item GEO (Geostationary Earth Orbit);
+    \item MEO (Medium Earth Orbit);
+    \item LEO (Low Earth Orbit).
+\end{itemize}
+In particular satellites:
+\begin{itemize}
+    \item can cover large areas depending on their height in the space:
+    \begin{itemize}
+        \item[$\rightarrow$] $>$ height $\Rightarrow$ $>$ covered area, $>$ latency, $<$ bandwidth
+        \item[$\rightarrow$] $<$ height $\Rightarrow$ $<$ covered area, $<$ latency, $>$ bandwidth
+    \end{itemize}
+    \item for one-way transmission are optimised (i.e. radio and movie broadcasting);
+    \item for two-way transmission are given up because of costs and few ambitions.
+\end{itemize}
+
+\subsubsection{Bluetooth}
+
+Characteristics:
+\begin{itemize}
+    \item it is a low cost replacement for cables;
+    \item it covers a short range up to 100m with multihop\\
+    $\rightarrow$ it requires exponential energy as distance
+    grows
+    \item frequency 2.4 GHz
+    \item 4 channels (3 for voice, 1 for data up to 700 Kbps)
+    \item Widely supported by telecommunications, PC\dots\\
+    $\rightarrow$ it is a standard de facto (also BLE\dots)
+\end{itemize}
+
+\subsubsection{Ad-hoc Networks}
+
+Characteristics:
+\begin{itemize}
+    \item it is a peer-to-peer communications (born for military purposes)
+    \item there isn't any backbone infrastructure
+    \item routing is very hard because of:
+    \begin{itemize}
+        \item[$\rightarrow$] dynamic topology;
+        \item[$\rightarrow$] typically multihop $\rightarrow$ to
+        extend coverage area or reduce interferences
+    \end{itemize}
+\end{itemize}
+
+Problems:
+\begin{multicols}{2}
+\begin{itemize}
+    \item hops;
+    \item bandwidth;
+    \item collsions handling;
+\end{itemize}
+\begin{itemize}
+    \item energy consumption;
+    \item topology;
+    \item dependency on device.
+\end{itemize}
+\end{multicols}
+
+\subsubsection{Mesh Networks}
