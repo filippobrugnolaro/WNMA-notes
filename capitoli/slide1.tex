@@ -212,7 +212,7 @@ Characteristics:
     $\rightarrow$ it is a standard de facto (also BLE\dots)
 \end{itemize}
 
-\subsubsection{Ad-hoc Networks}
+\subsubsection{Ad Hoc Networks}
 
 Characteristics:
 \begin{itemize}
@@ -241,3 +241,126 @@ Problems:
 \end{multicols}
 
 \subsubsection{Mesh Networks}
+
+Characteristics:
+\begin{itemize}
+    \item Ad hoc opportunistic extension of a fixed urban infrastructure\\
+    $\rightarrow$ full of wireless acess point which can connect to other
+    ones
+    \item it is easier than ANET because of almost static topology;
+    \item creation of wireless coverage which is:
+    \begin{itemize}
+        \item[$\rightarrow$] low-cost
+        \item[$\rightarrow$] easily deployable
+        \item[$\rightarrow$] high performancing
+    \end{itemize}
+    \item Challenges to face:
+    \begin{itemize}
+        \item[$\rightarrow$] QoS
+        \item[$\rightarrow$] routing protocols optimisation for fairness and load balancing
+        \item[$\rightarrow$] automatic setup on infrastructure's failures
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Sensor Networks}
+
+Characteristics:
+\begin{itemize}
+    \item there is at least one sensor as device in the network;
+    \item energy is the principal constraint (low or no battery)
+    \item data flows to centralised locations;
+    \item low per-node rate $\rightarrow$ up to 100K nodes
+    and they can cooperate in:
+    \begin{itemize}
+        \item[$\star$] transmission
+        \item[$\star$] reception
+        \item[$\star$] compression
+        \item[$\star$] signal processing
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Distributed Control over Wireless Links}
+
+Characteristics:
+\begin{itemize}
+    \item it is a possibile scenario where there is contorl over something;
+    \item it has to be robust to failures;
+    \item Packet loss and delays impact controller performance;
+    \item used mainly on autmated vehicles such as cars, UAVs\dots
+\end{itemize}
+\newpage
+\subsubsection{Mobile Ad Hoc Networks (MANET)}
+
+Characteristics:
+\begin{itemize}
+    \item ANET with a dynamic topology using:
+    \begin{itemize}
+        \item[$\rightarrow$] Infrastructure Network (WiFi or 3G/4G)
+        \item[$\rightarrow$] Ad Hoc Multihop wireless Network
+    \end{itemize}
+    \item Instantly deployable and re-configurable (for temporary needs);
+    \item Portable (i.e. sensors) and mobile (i.e. cars);
+\end{itemize}
+
+\subsubsection{Opportunistic Ad Hoc Networks}
+
+Characteristics:
+\begin{itemize}
+    \item they are created when needed;
+    \item Driven by “commercial” application needs:
+    \begin{itemize}
+        \item[$\rightarrow$] Indoor WLAN extended coverage
+        \item[$\rightarrow$] Bluetooth sharing
+        \item[$\rightarrow$] Peer-to-Peer networking on vehicles
+    \end{itemize}
+    \item Access to internet available\\ $\rightarrow$ BUT if too costly or inadequate
+    $\Rightarrow$ replacement with Ad Hoc Network
+\end{itemize}
+
+\subsubsection{Vehicular Ad Hoc Networks (VANET)}
+
+Characteristics:
+\begin{itemize}
+    \item ANET for vehicles
+    \item it has 1000m range
+    \item it supports 5.9 GHz
+    \item it has 6-27 Mbps data rate depending on range
+    \item it is more predictable $\rightarrow$ it may deduce infos
+    $\Rightarrow$ useful for crosslayers
+\end{itemize}
+
+\subsubsection{Flying Ad Hoc Networks (FANET)}
+
+Characteristics:
+\begin{itemize}
+    \item ANET for flying objects (i.e drone, mixed vehicles\dots)
+    \item there is a 3D topology $\rightarrow$ protocols needs to be redesigned
+\end{itemize}
+
+\subsubsection{Underwater Sensor Networks}
+
+Characteristics:
+\begin{itemize}
+    \item communication happens by sound $\rightarrow$
+    messages propagate in circles;
+    \item important to compute when message arrives $\rightarrow$ avoid collisions.
+\end{itemize}
+
+\subsubsection{Radio Frequecy IDentification (RFID)}
+
+Characteristics:
+\begin{itemize}
+    \item it is based on tags (low cost), readers (high cost) and eventually
+    a server;
+    \item tags can have:
+    \begin{itemize}
+        \item[$\star$] no battery $\rightarrow$ emitter charges the tag with energy (steal control,\dots)
+        \item[$\star$] battery $\rightarrow$ tag periodically emits its ID (check of product history, control with sensors,\dots)
+    \end{itemize}
+    \item systems can be built:
+    \begin{itemize}
+        \item[$\rightarrow$] lot of tags + one emitter $\Rightarrow$ cheap
+        \item[$\rightarrow$] lot of emitters + one tag $\Rightarrow$ expensive
+    \end{itemize}
+    \item it can identify specific instance of a product! (not only type like barcode)
+\end{itemize}
