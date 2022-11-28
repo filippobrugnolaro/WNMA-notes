@@ -26,7 +26,8 @@ Here is some characteristics and properties of radio freuquency:
     \end{itemize}
     \item Amplitude:
     \begin{itemize}
-        \item[$\rightarrow$] higher amplitude signals $\Rightarrow$ it goes further
+        \item[$\rightarrow$] higher amplitude signals $\Rightarrow$ it goes
+        further
         \item[$\rightarrow$] transmission power $= \frac{\text{energy}}{\text{time}}
         \rightarrow \frac{\text{joule}}{\text{s}}$
     \end{itemize}
@@ -71,8 +72,144 @@ Here is some characteristics and properties of radio freuquency:
 \end{itemize}
 
 \subsection{Wireless Transmission}
+
+It happens through elettromagnetic waves. There is a dependency on\\amplitude,
+frequency and phase values $\rightarrow$ each combination produces a new signal
+
+Characteristics:
+\begin{itemize}
+    \item Range:
+    \begin{itemize}
+        \item[$\rightarrow$] Transmission: communication possible, low error rate
+        \item[$\rightarrow$] Detection: detection of signal, no exchanging
+        messages
+        \item[$\rightarrow$] Interference: no detection for too much noise
+        depending from many \\factors (distance, enviroment\dots)
+    \end{itemize}
+    Detection requires more energy than communication
+    \item Propagation:
+    \begin{itemize}
+        \item[$\rightarrow$] it is at the light speed in free spaces
+        \item[$\rightarrow$] receiving power dipends from distance between
+        sender/receiver\\
+        rp = $\frac{1}{\text{d}^2}$ $\rightarrow$ rp influenced by:
+        \begin{itemize}
+            \item fading (dependent on frequency)
+            \item shadowing (obstacles)
+            \item reflection (large obstacles)
+            \item refraction (density of obstacles)
+            \item scattering (small obstacles)
+            \item diffraction (at edges)
+        \end{itemize}
+        \newpage
+        \item[$\rightarrow$] signal can follow different paths due to refraction,
+        scattering, diffraction. So there is:
+        \begin{itemize}
+            \item Time dispersion $\rightarrow$ signal is dispersed over time
+            \item Phase shifting $\rightarrow$ signal is distorted
+        \end{itemize}
+    \end{itemize}
+    \item Power measurement
+    \begin{itemize}
+        \item[$\rightarrow$] It is the Decibel (dB) $\rightarrow$ expression
+        power loss
+        \item[$\rightarrow$] It is more pratical to use logarithmic decay
+        $\rightarrow$ easy calculations
+        \item[$\rightarrow$] Decibel measures the logarithmic relative strenght
+        between 2 signals
+        \item[$\rightarrow$] Values of power measuements:
+        \begin{itemize}
+            \item positive $\rightarrow$ power gain
+            \item negative $\rightarrow$ power loss
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
 \subsection{Antennas}
+
+Characteristics:
+\begin{itemize}
+    \item it converts electrical energy in radio
+    frequency waves (transmission)\\and viceversa (reception)
+    \item its size $\rightarrow$ depends on radio
+    frequency of transimission/reception
+    \item its shape $\rightarrow$ depends on radio
+    frequency radiation pattern
+    \item position important to have max coverage
+\end{itemize}
+
+There are different types of antennas:
+\begin{itemize}
+    \item Omnidirectional antennas
+    \item Semi-directional antennas
+    \item Highly-directional antennas
+    \item Sectorised-directional antennas
+\end{itemize} 
 \subsubsection{Omnidirectional antennas}
+
+Characteristics:
+\begin{itemize}
+    \item radio frequency power is equally distributed in all direction around
+    Y-axis
+    \item used when:
+    \begin{itemize}
+        \item[$\rightarrow$] need of uniform radio coverage
+        \item[$\rightarrow$] point-to-multipoint connections (star topology)
+    \end{itemize}
+    \item Tilt $\rightarrow$ it is degree of inclination of antenna with respect to Y-axis
+    \item Example of dipole antenna
+    \begin{itemize}
+        \item[$\rightarrow$] passive gain due to concentration of radiations
+        \item[$\rightarrow$] active gain obtained with power amplifiers
+        \item[$\rightarrow$] signal is weak near the dipole
+        \item[$\rightarrow$] there is also:
+        \begin{itemize}
+            \item low gain $\rightarrow$ high signal near antenna, low far
+            \item high gain $\rightarrow$ low signal near antenna, high far
+        \end{itemize}
+    \end{itemize}
+\end{itemize} 
 \subsubsection{Semi-directional antennas}
+
+Characteristics:
+\begin{itemize}
+    \item radio frequency power is equally distributed only on $\frac{1}{2}$ direction\\
+    (also few goes behind that direction)
+    \item Types:
+    \begin{itemize}
+        \item[$\rightarrow$] Patch $\rightarrow$ flat antennas mounted on walls
+        \item[$\rightarrow$] Panel $\rightarrow$ flat antennas mounted on walls
+        \item[$\rightarrow$] Yagi $\rightarrow$ rod with tines sticking out 
+    \end{itemize}
+\end{itemize}
 \subsubsection{Highly-directional antennas}
+
+Characteristics:
+\begin{itemize}
+    \item radio frequency power is distributed on a specific direction and antenna could be as:
+    \begin{itemize}
+        \item[$\rightarrow$] parabolic dish
+        \item[$\rightarrow$] grid
+    \end{itemize}
+    \item it is used for long distances $\rightarrow$ point-to-point link
+    \item there is what is called LoS (Line of Sight):
+    \begin{itemize}
+        \item[$\rightarrow$] straight line between sender and receiver
+        \item[$\rightarrow$] needs no obstruction
+    \end{itemize}
+    \item there is also the Freshnel Zone:
+    \begin{itemize}
+        \item[$\rightarrow$] it is an area which is centered on LoS axis
+        \item[$\rightarrow$] most additive radio frequency signal is concentrated here
+        \item[$\rightarrow$] there is the need of no obstacles\\ (useless increasing power if Freshnel Zone is not free)
+        \item[$\rightarrow$] it depends on distance and frequency\\ $\Rightarrow$ there is no dependency from type, degree, gain of antennas
+    \end{itemize}
+\end{itemize}
+\newpage
 \subsubsection{Sectorised-directional antennas}
+
+Characteristics:
+\begin{itemize}
+    \item there are multiple antennas $\rightarrow$ each one points to a direction
+    \item it is applied the space multiplexing (channel reuse)\\ $\Rightarrow$ assigned the same frequency for antennas which do not collide each others 
+\end{itemize}
