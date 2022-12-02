@@ -1,0 +1,282 @@
+\section{MAC Layer}
+
+\subsection{Introduction}
+Multiple Access Control (MAC) layer:
+\begin{itemize}
+    \item it is a media access control protocol in which there is:
+    \begin{itemize}
+        \item[$\rightarrow$] coordination and scheduling of transmissions
+        \item[$\rightarrow$] hosts competing for having the channel
+    \end{itemize}
+    \item Access control
+    \begin{itemize}
+        \item[$\rightarrow$] it is referred to shared channel
+        \item[$\rightarrow$] broadcast of wireless transmission (at the light of speed)
+        \item[$\rightarrow$] who can transmit when/where
+        \item[$\rightarrow$] collisions $\rightarrow$ avoid/recover from them with detection or not\\
+        $\Rightarrow$ the problem is receiving at the same time (NOT SENDING)
+    \end{itemize}
+    \item Goals:
+    \begin{itemize}
+        \item[$\rightarrow$] low latency
+        \item[$\rightarrow$] good channel utilization (no collisions $\rightarrow$ using it as much as possible)
+        \item[$\rightarrow$]  best effort + real time support
+    \end{itemize}
+    As in a human conversation:
+    \begin{itemize}
+        \item[$\rightarrow$] Everybody should have the chance to talk
+        \item[$\rightarrow$] Do not speak until it is your turn
+        \item[$\rightarrow$] Do not monopolize the conversation
+        \item[$\rightarrow$] Raise your hand if you have to ask for something
+        \item[$\rightarrow$] Do not interrupt while somebody is talking
+        \item[$\rightarrow$] Do not fall asleep while somebody is talking
+    \end{itemize}
+    So the most important concepts are:
+    \begin{itemize}
+        \item[$\rightarrow$] efficiency in the bandwidth use $\rightarrow$ the maximum possible
+        \item[$\rightarrow$] resilience $\rightarrow$ avoid collisions
+        \item[$\rightarrow$] fairness $\rightarrow$ given n nodes and a bandwidth b, each one should have a bandwidth $\text{b}_{\text{n}}=\frac{\text{b}_{\text{tot}}}{\text{n}}$
+        \item[$\rightarrow$] robustness $\rightarrow$ decentralised, no single point of failure
+        \item[$\rightarrow$] simplicity $\rightarrow$ easy to implement
+    \end{itemize}
+    \item Channel Access Problem
+    \begin{itemize}
+        \item[$\rightarrow$] there is a multiple nodes share channel\\
+        $\Rightarrow$ simultaneous communication is not possible
+        \newpage
+        \item[$\rightarrow$] MAC proocols give schemes to schedule communication
+        \begin{itemize}
+            \item maximise number of communication $\rightarrow$ avoid collisions
+            \item guarantee fairness among all transmitters
+        \end{itemize}
+        \item[$\rightarrow$] trivial solution is Transmit and Pray\\$\Rightarrow$ plenty of collisions $\rightarrow$ poor throughput at high
+        \item[$\rightarrow$] Carrier Sense Multiple Access (CSMA):
+        \begin{itemize}
+            \item it provides a fix to Transmit and Pray
+            \item transmitters listen to the channel before sending $\rightarrow$ waiting when signal on channel
+            \item collisions:
+            \begin{itemize}
+                \item can still occur due to propagation delay
+                \item when it happens the entire packet could be lost $\rightarrow$ time wasted
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{MAC Protocols}
+MAC protocol $\rightarrow$ coordinates transmissions from
+different stations\\ \hspace*{2.5cm}$\Rightarrow$ minimize or avoid collisions\\[0.2cm]
+There a 3 different types of protocols:
+\begin{itemize}
+    \item Channel partitioning (TDMA, FDMA, CDMA)
+    \item Random Access (CSMA, MACA)
+    \item Taking turns (polling)
+\end{itemize}
+Approaches to MAC layer are:
+\begin{itemize}
+    \item Random Access:
+    \begin{itemize}
+        \item[$\rightarrow$] Without carrier sensing $\rightarrow$ Pure Aloha, Slotted Aloha
+        \item[$\rightarrow$] With carrier sensing $\rightarrow$ CSMA, CSMA/CD, MACAW
+    \end{itemize}
+    \item Controlled Access:
+    \begin{itemize}
+        \item[$\rightarrow$] Centralized $\rightarrow$ entity regulate channel's access (FDMA, TDMA, CDMA)
+        \item[$\rightarrow$] Distributed $\rightarrow$ distributed apps with peer nodes regulate channel's\\ access (Token ring)
+    \end{itemize}
+\end{itemize}
+\textbf{Random Access Protocols}
+
+Characteristics:
+\begin{itemize}
+    \item node transmits at random at full channel data rate
+    \item if nodes collide then they retransmit at random times
+    \item each one dectects/recovers form collision in a different way
+\end{itemize}
+\vspace*{0.5cm}
+Here there is the description of the most important protocols.
+
+\subsubsection{Slotted Aloha}
+
+Characteristics:
+\begin{itemize}
+    \item time is divided into equal size slots $\rightarrow$ equal to full packet size
+    \item newly arriving station transmits at the beginning of the next slot
+    \item if collision occurs:
+    \begin{itemize}
+        \item[$\rightarrow$] assumption of the presence of channel feedback
+        \item[$\rightarrow$] retransmission of packet at each slot with probability P, until successful
+        \end{itemize}
+        \item Successful of transmission:\\[0.2cm]given:
+        \begin{itemize}
+            \item N = number of stations
+            \item P = probability that each station transmits in the slot
+            \item S = probability of successful of transmission
+        \end{itemize}
+        the value of S is:
+        \begin{itemize}
+            \item S $=$ p(1-p)$^{\text{(N-1)}}$ by a single node 
+            \item S $=$ Np(1-p)$^{\text{(N-1)}}$ by any of N nodes
+        \end{itemize}
+    \item throughput efficiency is about $\frac{\text{1}}{\text{e}}$ $\rightarrow$
+    and:
+    \begin{enumerate}
+        \item obtaining p = $\frac{\text{1}}{\text{N}}$ (p should be tailored based on N)
+        \item substituting p to S $=$ Np(1-p)$^{\text{(n-1)}}$ $\Rightarrow$
+        S $=$ N$\frac{\text{1}}{\text{N}}$(1-$\frac{\text{1}}{\text{N}}$)$^{\text{(N-1)}}$
+        \item solving S at the limit obtaining S $=$ $\frac{\text{1}}{\text{e}}$
+    \end{enumerate}
+    \item it is fully decentralised
+\end{itemize}
+\subsubsection{Pure Aloha}
+Characteristics:
+\begin{itemize}
+    \item it doesn't require time slots $\rightarrow$ no synchronization
+    \item nodes can transmit at any time $\Rightarrow$ collision may increase
+    \item Successful of transmission:\\[0.2cm]given:
+    \begin{itemize}
+        \item N = number of stations
+        \item P = probability that each station transmits in the slot
+        \item S = probability of successful of transmission
+    \end{itemize}
+    the value of S is:
+    \begin{itemize}
+        \item S $=$ p(1-p)$^{\text{2(N-1)}}$ by a single node 
+        \item S $=$ Np(1-p)$^{\text{2(N-1)}}$ by any of N nodes
+    \end{itemize}
+    \item throughput efficiency is about $\frac{\text{1}}{\text{2e}}$ $\rightarrow$ every
+    transmission can occupy 2 slots\\ $\rightarrow$ and:
+    \begin{enumerate}
+        \item obtaining p = $\frac{\text{1}}{\text{2(N-1)}}$ (p should be tailored based on N)
+        \item substituting p to S $=$ Np(1-p)$^{\text{2(N-1)}}$ $\Rightarrow$
+        S $=$ N$\frac{\text{1}}{\text{2(N-1)}}$(1-$\frac{\text{1}}{\text{2(N-1)}}$)$^{\text{2(N-1)}}$
+        \item solving S at the limit obtaining S $=$ $\frac{\text{1}}{\text{2e}}$
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Considerations Pure \& Slotted Aloha}
+Both are:
+\begin{itemize}
+    \item not efficient at all $\rightarrow$ a lot of retransmissions:
+    \begin{itemize}
+        \item[$\star$] Pure Aloha throughput $\rightarrow$ 18.4 \%
+        \item[$\star$] Slotted Aloha throughput $\rightarrow$ 36.8 \%
+    \end{itemize}
+    \item unfair $\rightarrow$ aggressive senders can capture the channel
+    \item robust $\rightarrow$ decentralized
+    \item simple:
+    \begin{itemize}
+        \item[$\star$] Pure Aloha $\rightarrow$ no coordination
+        \item[$\star$] Slotted Aloha $\rightarrow$ just synchronization
+    \end{itemize}
+\end{itemize}
+\subsubsection{Carrier Sense Multiple Access (CSMA)}
+Characteristics:
+\begin{itemize}
+    \item Aloha protocols are less performing $\rightarrow$ lack of coordination among nodes
+    \item Each node continuously listens to channel $\rightarrow$ awareness of channel's freedom
+    $\Rightarrow$ improve in efficiency
+\end{itemize}
+There are different types of CSMA:
+\begin{itemize}
+    \item 1-persistent CSMA
+    \item non-persistent CSMA
+    \item p-persistent CSMA
+\end{itemize}
+
+\paragraph{1-persistent CSMA}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item how it works:
+    \begin{enumerate}
+        \item nodes listen to the channel
+        \item the channel can be:
+        \begin{itemize}
+            \item[$\rightarrow$] free $\rightarrow$ immediate transmission
+            \item[$\rightarrow$] busy $\rightarrow$ waiting until channel is free $\rightarrow$ $\text{P}_\text{R}$ $=$ 1\\\\\\
+            $\Rightarrow$ P\textsubscript{R} $=$ probability of retransmission\\
+            (if there is a collision $\rightarrow$ node waits for a random
+            time and\\retries $\Rightarrow$ desynchronization)
+        \end{itemize}
+    \end{enumerate}
+    \item propagation time
+    \begin{itemize}
+        \item[$\rightarrow$] impact on performance
+        \item[$\rightarrow$] more time $\Rightarrow$ more collisions\\
+        Example:\\
+        A can't hear B $\rightarrow$ B is trasmitting for so much time and A want to transmit
+        $\rightarrow$ channel is free for A but it is not $\Rightarrow$ collision
+        \item[$\rightarrow$] even with no propagation time\\
+        Example:\\if two nodes transmit and a third is occupying the channel\\
+        $\rightarrow$ when channel is free $\rightarrow$ all 2 transmit at
+        same time $\Rightarrow$ collision
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Non-persistent CSMA}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item how it works:
+    \begin{enumerate}
+        \item nodes listen to the channel
+        \item the channel can be:
+        \begin{itemize}
+            \item[$\rightarrow$] free $\rightarrow$ immediate transmission
+            \item[$\rightarrow$] busy $\rightarrow$ waiting a random time and then retry to listen
+        \end{itemize}
+    \end{enumerate}
+    \item it is less aggressive than 1-persistent CSMA
+\end{itemize}
+
+\paragraph{P-persistent CSMA}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item it is slot based
+    \item how it works:
+    \begin{enumerate}
+        \item nodes listen to the channel
+        \item the channel can be:
+        \begin{itemize}
+            \item[$\rightarrow$] free $\rightarrow$ transmission with probability p
+            \item[$\rightarrow$] busy $\rightarrow$ wait with probability (1-p) and then retry to listen
+        \end{itemize}
+    \end{enumerate}
+    \item Aggressiveness:
+    \begin{itemize}
+        \item[$\rightarrow$] it depends on p
+        \item[$\rightarrow$] p can be choose depending to the number of nodes:
+        \begin{itemize}
+            \item many $\rightarrow$ it may be conservative\\
+            $\Rightarrow$ bandwidth waste depending on number of collisions
+            \item few $\rightarrow$ it may be aggressive\\
+            $\Rightarrow$ bandwidth waste depending on time of channel not used
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\paragraph{CSMA with Collision Detection (CSMA/CD)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item it is like CSMA $\rightarrow$ but collisions are detected within few bit times
+    \item when it is detected $\rightarrow$ transmission aborted $\Rightarrow$ reduction of channel wastage
+    \item transmission is typically implemented persistently
+    \item collision detection can approach channel utilization $=$ 1 in LANs\\ $\rightarrow$ it can detect immediately if something is wrong
+    \item easy detection in wired LANs $\rightarrow$ it can
+    measure signal strength\\ $\rightarrow$ on the line, or code violations, \dots
+    \item collision detection can't be done in wireless LANs\\
+    Example:\\
+    the receiver shut off while transmitting $\rightarrow$ avoid damaging it with excess power
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
