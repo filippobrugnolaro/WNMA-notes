@@ -1,0 +1,53 @@
+\section{Network Layer}
+\subsection{Routing protocol}
+Characteristics:
+\begin{itemize}
+    \item it is difficult to have a direct path to destination (in ad hoc networks)\\
+    $\rightarrow$ goal is having a good path from source to destination\\
+    $\Rightarrow$ good can be:
+    \begin{itemize}
+        \item[$\rightarrow$] the shortest
+        \item[$\rightarrow$] the less expensive
+        \item[$\rightarrow$] the fastest
+    \end{itemize}
+    \item Graph abstraction for algorithms:
+    \begin{itemize}
+        \item[$\rightarrow$] Nodes $\rightarrow$ routers
+        \item[$\rightarrow$] Edges $\rightarrow$ physical links
+    \end{itemize}
+    \item Classification:
+    \begin{itemize}
+        \item[$\rightarrow$] information can be:
+        \begin{itemize}
+            \item Global $\rightarrow$ all router have complete topology\\
+            $\Rightarrow$ Ex: link state algorithm
+            \item Decentralised $\rightarrow$ routers know topology only of their neighbours\\
+            $\rightarrow$ routing table build when needed $\Rightarrow$ exchange of information\\
+            $\Rightarrow$ Ex: Distance vector algorithm
+        \end{itemize} 
+        \item[$\rightarrow$] algorithm can be:
+        \begin{itemize}
+            \item Static $\rightarrow$ topology fixed all the time $\rightarrow$ it changes slowly
+            \item Dynamic $\rightarrow$ topology changes frequently $\rightarrow$ periodic update of nodes
+        \end{itemize}
+    \end{itemize}
+    \item Example of link state algorithm $\Rightarrow$ Dijkstra algorithm:
+    \begin{itemize}
+        \item[$\rightarrow$] net topology $\rightarrow$ link costs known to all nodes
+        \begin{itemize}
+            \item accomplished via link state broadcasting
+            \item all nodes have same info
+        \end{itemize}
+        \item[$\rightarrow$] it computes least cost paths from one node to all the others\\
+        $\Rightarrow$ it gives forwarding table for that node
+        \item[$\rightarrow$] how it works:\\
+        Notation:
+        \begin{itemize}
+            \item c(x,y): link cost from node x to y; initially $= \infty$
+        \end{itemize}
+        \begin{enumerate}
+            \item for each visit from source search for a node which improve the cost
+            \item if it improves $\Rightarrow$ 
+        \end{enumerate}
+    \end{itemize}
+\end{itemize}
