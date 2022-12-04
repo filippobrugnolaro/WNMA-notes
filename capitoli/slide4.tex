@@ -193,7 +193,8 @@ Characteristics:
         \item the channel can be:
         \begin{itemize}
             \item[$\rightarrow$] free $\rightarrow$ immediate transmission
-            \item[$\rightarrow$] busy $\rightarrow$ waiting until channel is free $\rightarrow$ $\text{P}_\text{R}$ $=$ 1\\\\\\
+            \item[$\rightarrow$] busy $\rightarrow$ waiting until channel is free $\rightarrow$ $\text{P}_\text{R}$ $=$ 1
+            \newpage
             $\Rightarrow$ P\textsubscript{R} $=$ probability of retransmission\\
             (if there is a collision $\rightarrow$ node waits for a random
             time and\\retries $\Rightarrow$ desynchronization)
@@ -266,6 +267,42 @@ Characteristics:
     \item collision detection can't be done in wireless LANs\\
     Example:\\
     the receiver shut off while transmitting $\rightarrow$ avoid damaging it with excess power
+\end{itemize}
+
+\subsubsection{Wireless Medium Access Control}
+Some basics:
+\begin{itemize}
+    \item transmission strength drops exponentially as the distance grows
+    \item there is the SINR ($\Rightarrow$ signal internface noise ratio)\\
+    $\rightarrow$ calculation of how strong is signal compared to interference
+    \item SINR threshold $\rightarrow$ bound in which signal can't be detected anymore
+    \begin{itemize}
+        \item[$\rightarrow$] C can hear but not receive correctly the message
+        \item[$\rightarrow$] A can't send/listen at the same time\\
+        Example:\\
+        collision with A $\rightarrow$ D may not; B/C maybe
+    \end{itemize}
+    \item Collision detection:
+    \begin{itemize}
+        \item[$\rightarrow$] A is out of C range (and vicerversa), both have B on range\\
+        $\rightarrow$ they send together $\Rightarrow$ collsion at receiver B
+        \item[$\rightarrow$] Both:
+        \begin{itemize}
+            \item don't know their position
+            \item can only hear themselves $\rightarrow$ no listening while transmitting
+            \item can't determine the signal quality at receiver
+        \end{itemize}
+        \item[$\rightarrow$] Two problems:
+        \begin{itemize}
+            \item Hidden Terminal Problem $\rightarrow$ nodes don't know the topology\\
+            $\rightarrow$ they transmit to same node without knowing other's transmission\\
+            $\Rightarrow$ collision
+            \item Exposed Terminal Problem $\rightarrow$ nodes are in each oteher range\\
+            $\rightarrow$ transmission to different receivers $\rightarrow$ even if channel is free\\
+            $\rightarrow$ one don't transmit thinking channel is busy
+        \end{itemize}
+    \end{itemize}
+    
 \end{itemize}
 
 
