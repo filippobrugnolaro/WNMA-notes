@@ -40,14 +40,44 @@ Characteristics:
         \end{itemize}
         \item[$\rightarrow$] it computes least cost paths from one node to all the others\\
         $\Rightarrow$ it gives forwarding table for that node
-        \item[$\rightarrow$] how it works:\\
+        \item[$\rightarrow$] how it works:\\[0.2cm]
         Notation:
         \begin{itemize}
-            \item c(x,y): link cost from node x to y; initially $= \infty$
+            \item $c(x,y)$: link cost from node x to y; initially $= + \infty$
+            \item $D(v)$: current value of cost of path from source to destination v
+            \item $p(v)$: predessor node along path from source to destination v
+            \item $N'$: set of node whose least cost path is known
         \end{itemize}
-        \begin{enumerate}
-            \item for each visit from source search for a node which improve the cost
-            \item if it improves $\Rightarrow$ 
-        \end{enumerate}
+        \newpage
+        Algorithm:
+        \vspace*{-0.5cm}
+        \begin{figure}[!h]
+            \centering
+            \begin{minipage}{.75\linewidth}
+                \begin{algorithm}[H]
+                    \captionsetup{labelformat=empty}
+                    \begin{algorithmic}[1]
+                    \State \textbf{Initialization:}
+                    \State $N' = \{u\}$
+                    \For {all nodes $v$}
+                        \If {$v$ is adjacent to $u$}
+                            \State {$D(v) = c(u,v)$}
+                        \Else 
+                            \State {$D(v) = + \infty$}
+                        \EndIf
+                    \EndFor
+                    \State
+                    \State \textbf{Iterations:}
+                    \Repeat 
+                    \State find $w \notin N' \mid D(w)$ is a minimum
+                    \State add $w$ to $N'$
+                    \For {\textbf{all} $v$ adjacent to $w$ \& $v \notin N'$}
+                        \State $D(v) = min(D(v),$ $D(w) + c(w,v))$ //update $D(v)$
+                    \EndFor
+                    \Until {all nodes $\in N'$}
+                    \end{algorithmic}
+                \end{algorithm}
+            \end{minipage}
+        \end{figure}
     \end{itemize}
 \end{itemize}
