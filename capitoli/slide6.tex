@@ -1,15 +1,15 @@
 \section{Network Layer}
-\subsection{Routing protocol}
+It is difficult to have a direct path to destination (in ad hoc networks)\\
+Routing protocol $\rightarrow$ goal is having a good path from source to destination\\
+$\Rightarrow$ good can be:
+\begin{itemize}
+    \item[$\rightarrow$] the shortest
+    \item[$\rightarrow$] the less expensive
+    \item[$\rightarrow$] the fastest
+\end{itemize}
+\subsection{Routing algorithm}
 Characteristics:
 \begin{itemize}
-    \item it is difficult to have a direct path to destination (in ad hoc networks)\\
-    $\rightarrow$ goal is having a good path from source to destination\\
-    $\Rightarrow$ good can be:
-    \begin{itemize}
-        \item[$\rightarrow$] the shortest
-        \item[$\rightarrow$] the less expensive
-        \item[$\rightarrow$] the fastest
-    \end{itemize}
     \item Graph abstraction for algorithms:
     \begin{itemize}
         \item[$\rightarrow$] Nodes $\rightarrow$ routers
@@ -80,4 +80,247 @@ Characteristics:
             \end{minipage}
         \end{figure}
     \end{itemize}
+\end{itemize}
+
+\subsection{Infrastructure Network vs MANET}
+Differences:\\[0.3cm]
+\begin{tabular}{|l|l|}
+    \hline
+    Infrastructure Network & MANET \\
+    \begin{minipage}{0.45\linewidth}
+        \begin{itemize}
+            \item AP/base stations define\\cells/areas
+            \item simple routing\\$\rightarrow$ one hop from AP to wireless node
+        \end{itemize}
+    \end{minipage}
+    &
+    \begin{minipage}{.45\linewidth}
+        \begin{itemize}
+            \item no infrastructure\\$\rightarrow$ no static network
+            \item hard routing\\$\rightarrow$ some nodes are not close\\$\Rightarrow$ someone must forward data
+        \end{itemize}
+    \end{minipage}
+    \\
+    Wired & Wireless \\
+    \begin{minipage}{.45\linewidth}
+        \begin{itemize}
+            \item symmetric link\\$\rightarrow$ bidirectinal
+            \item limited redundancy $\rightarrow$ for\\reliability and load sharing
+            \item planned links $\rightarrow$ high QoS,\\fixed topology
+            \item[]
+        \end{itemize}
+    \end{minipage}
+    &
+    \begin{minipage}{.45\linewidth}
+        \begin{itemize}
+            \item asymmetric link\\$\rightarrow$ unidirectional
+            \item random redundancy $\rightarrow$ in\\connectivity between nodes
+            \item dynamic links $\rightarrow$ dynamic topology, interference
+            \item[]
+        \end{itemize}
+    \end{minipage}
+    \\
+    \hline
+\end{tabular}
+\\[0.3cm]
+$\Rightarrow$ Traditional Routing Algorithms $\rightarrow$ doesn't work well for MANET\\
+This is because MANETs:
+\begin{itemize}
+    \item have dynamic topology $\rightarrow$ nodes leave and enter quickly
+    \item have minor performance due:
+    \begin{itemize}
+        \item[$\rightarrow$] energy consumption $\rightarrow$ incompatibility with periodic updates
+        \item[$\rightarrow$] limited bandwidth $\rightarrow$ even more to exchange routing info
+        \item[$\rightarrow$] asymmetric links $\rightarrow$ info about link + quality of link\\
+        $\Rightarrow$ different costs depending on the direction
+    \end{itemize}
+    \item are innefficient $\rightarrow$ slow convergencee time
+    \item are not robust enough
+    \item are non-functional $\rightarrow$ large amount of data not dealing with asymmetric links
+    \item could have path length (hop count) $\rightarrow$ which may not be the best metric
+    \item need routing which rely on data link (not just only network layer updates)\\
+    $\rightarrow$ this determines connectivity + quality of links
+\end{itemize}
+So for a good Unicast Routing Protocol these are all goals:\\[0.3cm]
+\begin{minipage}{.5\linewidth}
+    \begin{itemize}
+        \item minimal control/processing\\overhead
+        \item multi-hop path routing
+        \item self-starting
+        \item energy constraints
+        \end{itemize}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+    \begin{itemize}
+        \item traffic patterns $\rightarrow$ inform nodes on what a node is going to do
+        \item dynamic topology mantainance
+        \item no loops
+        \item no central authority
+        \end{itemize}
+\end{minipage}
+
+\subsection{Routing Procols Classification}
+Routing protocols can be classified into 3 different categories:
+\begin{itemize}
+    \item Proactive (table-driven):
+    \begin{itemize}
+        \item[$\rightarrow$] routing information always up-to-date
+        \item[$\rightarrow$] routing overhead independent of route usage
+        \item[$\rightarrow$] used for not so much dynamic networks 
+    \end{itemize}
+    \item Reactive (Source-initiated):
+    \begin{itemize}
+        \item[$\rightarrow$] routes maintained only for routes in use $\Rightarrow$ less overhead
+        \item[$\rightarrow$] explicit route discovery mechanism
+    \end{itemize}
+    \item Hybrid
+    \begin{itemize}
+        \item[$\rightarrow$] combination of proactive and reactive
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Proactive Routing Approach}
+Characteristics:
+\begin{itemize}
+    \item based on link-state/distance-vector protocols
+    \item each node knows to path to reach another node thanks to consistent tables
+    \item there is periodic/event-driven routing updates
+    \item routing updates $\Rightarrow$ more overhead
+    \item if ad-hoc network is really dynamic $\Rightarrow$ most of updates are not used at all
+    \item low latency $\rightarrow$ because route is known
+    \item protocols differ on the method to propagate informations\\$\rightarrow$ every node use a unique ID
+    \item high route convergence time
+    \item Examples: DSDV, WRP \dots
+\end{itemize}
+Here there are some proactive routing protocols.
+
+\paragraph{Destination Sequenced Distance Vector (DSDV)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item based on Bellman-Ford algorithm
+    \item use sequence number to avoid loops $\rightarrow$ new nodes $\Rightarrow$ higher sequence \mbox{number}
+    \item optimizations $\rightarrow$ as incremental data exchange, delayed exchange of updates
+    \item packets are transmitted according to routing table
+    \item each node:
+    \begin{itemize}
+        \item[$\rightarrow$] mantains a routing table with entry for each node in the network\\
+        $\rightarrow$ <dest\_addr; dest\_seq\_number; next\_hop; hop\_count; install\_time>
+        \item[$\rightarrow$] maintains its own sequence number $\Rightarrow$ so it:
+        \begin{itemize}
+            \item updates if neighbour informations are changed
+            \item avoid loops
+            \item distinguish new routers
+        \end{itemize}
+    \end{itemize}
+    \item updates:
+    \begin{itemize}
+        \item[$\rightarrow$] are periodic to keep consistency $\rightarrow$ done with the inclusion of\\<dest\_addr; dest\_seq\_num; hop\_count> $\Rightarrow$ lot of overhead
+        \item[$\rightarrow$] nodes send routing tables for important link changes $\rightarrow$ ex: link broken
+        \item[$\rightarrow$] if node receive routes from 2 different neighbours $\rightarrow$ it can be chosen:
+        \begin{itemize}
+            \item the one with higher dest\_seq\_num
+            \item the one with lower hop count
+        \end{itemize}
+        \item[$\rightarrow$] lots of control traffic is created $\rightarrow$ so there are 2 types of routing update
+        packets:
+        \begin{itemize}
+            \item Full dumps:
+            \begin{itemize}
+                \item ir carries all routing table information
+                \item transmitted relatively infrequently
+            \end{itemize}
+            \item Incremental updates:
+            \begin{itemize}
+                \item it carries only information changed since last full dump
+                \item it fits within one network protocol data unit (NPDU)
+                \item when it doesn't fit $\Rightarrow$ full dump
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Optimized Link State Routing (OLSR)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item based on state-link algorithm
+    \item good for large and dense networks
+    \item all links with neighboring Mobile Hosts $\rightarrow$ declared and flooded in entire network
+    \item it is done periodic control of messages sent
+    \item use of traffic patterns
+    \item it minimizes flooding of control traffic using only selected Mobile Hosts\\[0.2cm]
+    $\Rightarrow$ Multipoint Relays:
+    \begin{itemize}
+        \item[$\rightarrow$] it minimizes the flooding of broadcast packets in the network
+        \item[$\rightarrow$] each Mobile Host select a set of neighboring Mobile Host to retransmit $\Rightarrow$ reduction of duplicate retransmissions in the same region
+        \item[$\rightarrow$] this set can change over time $\rightarrow$ indicated by Hello messages
+        \item[$\rightarrow$] tipically are selected neighbour at 1 hop 
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Clusterhead Gateway Switch Routing (CGSR)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item nodes organised in hierarchy:
+    \begin{itemize}
+        \item[$\rightarrow$] Clusterhead $\rightarrow$ selected by election
+        \item[$\rightarrow$] Gateway $\rightarrow$ it connects clusterhead
+        \item[$\rightarrow$] how it works:
+        \begin{enumerate}
+            \item Nodes send packet through clusterheads
+            \item Clusterheads communicate among themselves using DSDV\\
+            $\rightarrow$ two clusters are connected through a gateway node
+        \end{enumerate}
+    \end{itemize}
+\end{itemize}
+\subsubsection{Reactive Routing Approach}
+Characteristics:
+\begin{itemize}
+    \item source builds routing on demand by flooding\\$\rightarrow$ nodes receive and broadcast again $\rightarrow$ route discovery cycle
+    \item it maintains only active routes
+    \item pro $\rightarrow$ less control overhead $\Rightarrow$ better scaling
+    \item cons $\rightarrow$ latency or long delay in finding route\\
+    RFC\footRFC 3561 not suitable for real-time traffic
+    \item route discovery by flooding $\rightarrow$ every node propagates the message\\
+    $\Rightarrow$ assumption of algorithms $\rightarrow$ sender need to know the existance of receiver
+    \item route mantainance procedure is used to repair routes
+    \item Example: AODV, DRS \dots
+\end{itemize}
+
+\paragraph{Ad Hoc On-Demand Distance Vector Routing (AODV)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item RFC 3561 $\rightarrow$ based on DSDV
+    \item dest\_seq\_num avoids loops
+    \item routing table only exchanges with nodes of a given route
+    \item how it finds a route:
+    \begin{enumerate}
+        \item source sends Route Request Packet (RREQ)\\$\rightarrow$ many routes can be found, but one implemented
+        \item nodes floods it to neighbours
+        \item Route Reply Packet (RREP) is sent back by destination\\
+        $\Rightarrow$ but nodes:
+        \begin{itemize}
+            \item[$\rightarrow$] respond the first time they receive the request
+            \item[$\rightarrow$] reply only if they have contact/valid route with destination
+        \end{itemize}
+        \item Route Error messages update routes
+    \end{enumerate}
+    \item if routes are not used $\Rightarrow$ they expire and get discarded
+    \begin{itemize}
+        \item[$\rightarrow$] it reduces stale routes $\Rightarrow$ it doesn't require explicit route maintenance
+        \item[$\rightarrow$] minimize routes from source to destination
+    \end{itemize}
+        \item it discovers routes as and when necessary\\$\rightarrow$ path mantained only in involved nodes (routing table)
+        \item routes are mantained as long as necessary
+        \item nodes have a unique dest\_seq\_num\\$\Rightarrow$ it is increased
+        for every change in neighbourhood topology
+    \item it utilize a routing table to store routing informations $\rightarrow$ there are 2 types:
+    \begin{itemize}
+        \item[$\rightarrow$] for unicast routes $\rightarrow$ path from source to destination
+        \item[$\rightarrow$] for multicast routes $\rightarrow$ flooding\\
+        $\rightarrow$ it is a problem if a node receives all at once $\Rightarrow$ collision and congestion
+    \end{itemize}
+    \item route table stores $\rightarrow$ <dest\_add; next\_hop\_add; dest\_seq\_num; life\_time>
+    $\rightarrow$ life\_time $\rightarrow$ used as expiring time $\rightarrow$ updated each time route is used
+    \item each node maintains list of precursor nodes for each destination to route to\\$\Rightarrow$ help in route mantainance
+    \item how route discovery works ($\Rightarrow$ node wishes to send a packet):
 \end{itemize}
