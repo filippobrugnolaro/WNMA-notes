@@ -306,14 +306,14 @@ Characteristics:
     \end{enumerate}
     \item if routes are not used $\Rightarrow$ they expire and get discarded
     \begin{itemize}
-        \item[$\rightarrow$] it reduces stale routes $\Rightarrow$ it doesn't require explicit route maintenance
-        \item[$\rightarrow$] minimize routes from source to destination
+        \item[$\rightarrow$] it reduces obsolete routes $\Rightarrow$ it doesn't require explicit route maintenance
+        \item[$\rightarrow$] it minimizes routes from source to destination
     \end{itemize}
         \item it discovers routes as and when necessary\\$\rightarrow$ path mantained only in involved nodes (routing table)
         \item routes are mantained as long as necessary
         \item nodes have a unique dest\_seq\_num\\$\Rightarrow$ it is increased
         for every change in neighbourhood topology
-    \item it utilize a routing table to store routing informations $\rightarrow$ there are 2 types:
+    \item it utilizes a routing table to store routing informations $\rightarrow$ there are 2 types:
     \begin{itemize}
         \item[$\rightarrow$] for unicast routes $\rightarrow$ path from source to destination
         \item[$\rightarrow$] for multicast routes $\rightarrow$ flooding\\
@@ -322,5 +322,270 @@ Characteristics:
     \item route table stores $\rightarrow$ <dest\_add; next\_hop\_add; dest\_seq\_num; life\_time>
     $\rightarrow$ life\_time $\rightarrow$ used as expiring time $\rightarrow$ updated each time route is used
     \item each node maintains list of precursor nodes for each destination to route to\\$\Rightarrow$ help in route mantainance
+    \newpage
     \item how route discovery works ($\Rightarrow$ node wishes to send a packet):
+    \begin{enumerate}
+        \item it checks if destination is in the routing table:
+        \begin{itemize}
+            \item[$\rightarrow$] Yes $\rightarrow$ it forwards the packet to the next hop;
+            \item[$\rightarrow$] No $\rightarrow$ it initiates a route discovery process;
+        \end{itemize}
+        \item source node creates a new Route Request (RREQ) packet\\
+        $\rightarrow$ which contains:
+        \begin{itemize}
+            \item[$\star$] source\_IP\_add
+            \item[$\star$] source\_curr\_seq\_num
+            \item[$\star$] dest\_IP\_add
+            \item[$\star$] dest\_seq\_num
+            \item[$\star$] broad\_ID
+        \end{itemize}
+        $\rightarrow$ broad\_ID incremented each time a source node uses RREQ
+        \\$\rightarrow$ broad\_ID + dest\_IP\_add = unique ID for RREQ
+        \item Broadcasting is done via flooding
+        \item when intermediate node receives RREQ\\$\Rightarrow$ node sets up
+        reverse route entry for source node in its routing table\\
+        $\rightarrow$ Reverse Route Entry consists of:
+        \begin{itemize}
+            \item[$\star$] source\_IP\_add
+            \item[$\star$] source\_seq\_num
+            \item[$\star$] num\_hops\_to\_source
+            \item[$\star$] pred\_IP\_add
+            \item[$\star$] life\_time
+        \end{itemize}
+        $\rightarrow$ nodes can send RREP using reverse route
+        \item when RREQ reaches destination $\Rightarrow$ to respond it should have:
+        \begin{itemize}
+            \item[$\rightarrow$] unexpired entry for destination
+            \item[$\rightarrow$] dest\_seq\_num $\geq$ seq\_num\_RREQ (for loop prevention)
+        \end{itemize}
+        \item there are 2 scenarios depending on satisfaction of conditions in last point. If they are:
+        \begin{itemize}
+            \item[$\rightarrow$] satisfied $\Rightarrow$ node responds sending a RREP back to source\\
+            using unicasting and reverse path
+            \item[$\rightarrow$] not satisfied $\Rightarrow$ node increments hop count in RREQ and floods to neighbours
+        \end{itemize}
+    \end{enumerate}
+    Observation\\[0.05cm]
+    Also intermediate node can also RREP\\[0.05cm]
+    $\rightarrow$ if it knows a more recent path $\Rightarrow$ dest\_seq\_num newer
+    \\$\rightarrow$ not used so much $\Rightarrow$ because:
+    new RREQ $\Rightarrow$ new dest\_seq\_num\\$\Rightarrow$ intermediate dest\_seq\_num $<$ new dest\_seq\_num
+    $\Rightarrow$ it can't send RREP
+    \item Timeouts:\\[0.15cm]
+    Routing table entry keeping a reverse path is deleted:
+    \begin{itemize}
+        \item[$\rightarrow$] after a timeout $\Rightarrow$ it should be long enough to allow RREP to come back
+        \item[$\rightarrow$] if it is not used for active\_route\_timeout interval\\
+        $\rightarrow$ if no data is being sent $\Rightarrow$ that entry will be deleted even if it is valid
+    \end{itemize}
+    \item Link Failure Detection:
+    \begin{itemize}
+        \item[$\rightarrow$] neighboring nodes periodically exchange "Hello" messages
+        \item[$\rightarrow$] absence of message $\Rightarrow$ link failure
+        \item[$\rightarrow$] MAC level ACKs missing $\Rightarrow$ link failure
+    \end{itemize}
+    \item Optimizations:
+    \begin{itemize}
+        \item[$\rightarrow$] RREQ are send with a TTL\footTTL with hop count $\Rightarrow$ limit flooding propagation
+        \item[$\rightarrow$] initially small TTL $\Rightarrow$ then larger if RREP is not received by source
+        \item[$\rightarrow$] Expanding Ring Search:
+        \begin{itemize}
+            \item it prevents flooding of network during route discovery
+            \item it controls TTL of RREQ to search incrementally larger areas
+            \item Advantages $\rightarrow$ less overhead when successful
+            \item Disadvantages $\rightarrow$ longer delay if route isn't found immediately:
+            \begin{itemize}
+                \item there could be many possible destinations
+                \item it would be better without optimization
+                \item maybe it doesn't find the optimal path
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Dynamic Source Routing (DSR)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item each data packet has full source route and provokes overhead 
+    \item RREQ has attached full source-route and is sent back in RREP
+    \item route table overhead is only at source node 
+    \item route discovery similar to AODV:
+    \begin{enumerate}
+        \item sender initiate request
+        \item intermediate nodes add their address onto request
+        \item when request reaches destination $\Rightarrow$ it includes the full path
+    \end{enumerate}
+    \item it is better in terms of mobility
+\end{itemize}
+
+\newpage
+
+\paragraph{Associativity-Based Routing (ABR)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item it defines degree of association stability as metric instead of number of hops
+    \item nodes with less mobility/better links $\rightarrow$ they have higher stability value
+    \item it is DSR-like protocol for routing 
+\end{itemize}
+
+\paragraph{Signal Stability Routing (SSR)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item it defines signal strength of links as metric
+    \item RREQ is forwarded only if packet is received over a link with good signal
+    \item it is DSR-like protocol for routing
+\end{itemize}
+
+\paragraph{Other metrics definition}
+\begin{itemize}
+    \item Expected Transmission Time (ETT) $\rightarrow$ time to reach a node
+    $\Rightarrow$ easy to compute\\$\rightarrow$ more useful than signal strength
+    \item Weighted Cumulative Expected Transmission Time (WCETT)\\
+    $\rightarrow$ better for multi-radio/asymmetric links
+\end{itemize}
+
+\paragraph{Flooding}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item used for Control Packet Delivering
+    \item how it works:
+    \begin{enumerate}
+        \vspace*{-0.05cm}\item sender sends a broadcast packet to all its neighbours $\rightarrow$ to find a route
+        \vspace*{-0.05cm}\item neighbours forward it \\$\rightarrow$ if seq\_num no already seen $\Rightarrow$ it avoids packet resending
+        \vspace*{-0.05cm}\item destination doesn't forward it \\$\rightarrow$ if destination receives packet $\Rightarrow$ sender can reach the destination
+    \end{enumerate}
+    \item Pro:
+    \begin{itemize}
+        \vspace*{-0.05cm}\item[$\rightarrow$] simple and more efficient when there is:
+        \begin{itemize}
+            \vspace*{-0.05cm}\item high dynamic topology
+            \vspace*{-0.05cm}\item small data packet are sent infrequently
+        \end{itemize}
+        \vspace*{-0.05cm}\item[$\rightarrow$] higher reliability of data delivery $\rightarrow$ multiple paths to reach destination
+    \end{itemize}
+    \item Cons:
+    \begin{itemize}
+        \vspace*{-0.05cm}\item[$\rightarrow$] potential high overhead $\rightarrow$ nodes can receive packets multiple times
+        \vspace*{-0.05cm}\item[$\rightarrow$] lower reliability of data delivery $\rightarrow$ broadcasting hard to implement\\without overhead increasing
+        \vspace*{-0.05cm}\item[$\rightarrow$] potential packet loss $\rightarrow$ more nodes send same packet to same destination simultaneously
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{DSDV vs AODV}
+Differences:
+\vspace*{0.2cm}
+\begin{center}
+    \begin{tabular}{|p{5.5cm}|p{5.5cm}|}
+        \hline
+        \centering \textbf{DSDV} & \centering \textbf{AODV} \arraybackslash\\
+        \begin{minipage}{1 \textwidth}
+            \vspace*{0.1cm}
+            \begin{itemize}
+                \addtolength{\itemindent}{-0.5cm}
+                \item every change is broadcasted
+                \vspace*{0.15cm}
+                \item new neighbours link $\Rightarrow$ news is \newline\hspace*{-0.5cm}broadcasted
+                \vspace*{0.15cm}
+                \item new broken link $\Rightarrow$ news is \newline\hspace*{-0.5cm}broadcasted
+                \vspace*{0.15cm}
+                \item more control overhead (high)
+                \vspace*{0.15cm}
+                \item local movements $\Rightarrow$ global effects
+                \item[]
+            \end{itemize}
+        \end{minipage}
+        &
+        \begin{minipage}{1 \textwidth}
+            \vspace*{0.1cm}
+            \begin{itemize}
+                \addtolength{\itemindent}{-0.5cm}
+                \item no broadcasting necessary 
+                \vspace*{0.15cm}
+                \item only affected nodes are\newline\hspace*{-0.5cm}informed
+                \vspace*{0.15cm}
+                \item new broken link $\Rightarrow$ no global \newline\hspace*{-0.5cm}broadcasting
+                \vspace*{0.15cm}
+                \item less control overhead (low)
+                \vspace*{0.15cm}
+                \item local movements $\Rightarrow$ local effects
+                \item[]
+            \end{itemize}
+        \end{minipage}
+        \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection{DSR vs AODV}
+Differences:
+\vspace*{0.2cm}
+\begin{center}
+    \begin{tabular}{|p{5.5cm}|p{5.5cm}|}
+        \hline
+        \centering \textbf{DSDV} & \centering \textbf{AODV} \arraybackslash\\
+        \begin{minipage}{1 \textwidth}
+            \vspace*{0.1cm}
+            \begin{itemize}
+                \addtolength{\itemindent}{-0.5cm}
+                \item source route in packet headers \newline\hspace*{-0.5cm}$\Rightarrow$ especially for small packets 
+                \vspace*{0.15cm}
+                \item routing table mantained only \newline\hspace*{-0.5cm}on source
+                \vspace*{0.15cm}
+                \item lifetime for routes discovery
+                \item[]
+            \end{itemize}
+        \end{minipage}
+        &
+        \begin{minipage}{1 \textwidth}
+            \vspace*{0.1cm}
+            \begin{itemize}
+                \addtolength{\itemindent}{-0.5cm}
+                \item only predecessor on each \newline\hspace*{-0.5cm}packet
+                \vspace*{0.15cm}
+                \item routing tables mantained also \newline\hspace*{-0.5cm}on nodes
+                \vspace*{0.15cm}
+                \item no lifetime for routes discovery
+                \item[]
+            \end{itemize}
+        \end{minipage}
+        \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection{Other Routing Protocols}
+There are other protocols:
+\begin{itemize}
+    \item Hybrid:
+    \begin{itemize}
+        \item[$\rightarrow$] Zone Routing Protocol (ZRP)
+    \end{itemize}
+    \item Geographic Routing Protocols:
+    \begin{itemize}
+        \item[$\rightarrow$] Location Aided Routing (LAR)
+        \item[$\rightarrow$] Distance Routing Effect Algorithm for Mobility (DREAM)
+        \item[$\rightarrow$] Greedy Perimeter Stateless Routing (GPSR)
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Greedy Perimeter Stateless Routing (GPSR)}\mbox{}\\[0.2cm]
+Characteristics:
+\begin{itemize}
+    \item nodes know the destination/neighbours location
+    \item each node forwards a packet to its neighbor closest to the destination\\
+    $\rightarrow$ using some greedy, local optima algorithms
+    \item There is a problem $\rightarrow$ the risk of
+    local minima ($\Rightarrow$ two nodes keep exchanging the same packet)
+    \item if routing holes are found $\Rightarrow$ it uses perimeter routing (right hand rule)\\
+    $\rightarrow$ to find local minimum
+    \item Right Hand Rule:
+    \begin{itemize}
+        \item use of first 3 fingers
+        \item it works only in 2D topology
+        \item how it works:
+        \begin{enumerate}
+            \item there is an imaginary line from source to destination
+            \item the packet is sent to the first node counterclockwise
+        \end{enumerate}
+    \end{itemize}
 \end{itemize}
