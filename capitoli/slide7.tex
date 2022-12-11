@@ -1,1 +1,46 @@
 \section{Transport Layer}
+\subsection{Overview}
+\begin{itemize}
+    \item it is after the network layer $\rightarrow$ it 
+\end{itemize}
+There are 3 main types of protocols for transport layer:
+\begin{itemize}
+    \item UDP:
+    \begin{itemize}
+        \item[$\rightarrow$] it is light, fast, unreliable $\rightarrow$ used for streaming and online games
+        \item[$\rightarrow$] it just forwards what it is received from application layer\\
+        $\Rightarrow$ this implies:
+        \begin{itemize}
+            \item no ACK
+            \item no congestion control
+            \item no care about order in receiver
+        \end{itemize}
+    \end{itemize}
+    \item TCP:
+    \begin{itemize}
+        \item[$\rightarrow$] it is reliable, end-to-end, two-way protocol $\rightarrow$ used for sending files
+        \item[$\rightarrow$] it assures that receiver gets packets correctly and ordered $\rightarrow$ waiting for ACK
+        \item[$\rightarrow$] there is control over flow and congestion $\rightarrow$ on receiver and on internet\\
+        $\Rightarrow$ this implies:
+        \begin{itemize}
+            \item it cares about speed $\rightarrow$ not overwelming receiver
+        \end{itemize}
+    \end{itemize}
+    \item QUIC:
+    \begin{itemize}
+        \item[$\rightarrow$]
+    \end{itemize}
+\end{itemize}
+\subsection{TCP Protocol}
+
+
+
+
+
+%\subsection{TCP Versions}
+%\subsubsection{TCP Tahoe}
+%\subsubsection{TCP Reno}
+%\subsubsection{TCP New Reno}
+%\subsubsection{TCP SACK}
+%\subsubsection{TCP Vegas}
+%\subsubsection{TCP Westwood}
