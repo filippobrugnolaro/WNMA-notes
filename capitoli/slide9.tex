@@ -1,0 +1,181 @@
+\section{Vehicular Ad Hoc Networks (VANET)}
+\subsection{IEEE 802.11p}
+\begin{itemize}
+    \item it provides connectivity to vehicles
+    \begin{itemize}
+        \item[$\rightarrow$] beyond 4G $\rightarrow$ not so crucial
+        \item[$\rightarrow$] useful for safety/public apps 
+    \end{itemize}
+    \item parts taken from a and b versions
+    \item it use a reserved sequency (5.9GHz)
+    \begin{itemize}
+        \item 1000 m of transmission range
+        \item 26 Mbps $\rightarrow$ but it can be lower $\rightarrow$ sufficient for
+        exchanging messages, \dots
+        \item transmission up to 6 Mbps at 300m $\rightarrow$ nodes travelling at
+        200 km/h speed
+    \end{itemize}
+    \item Problem:\\[0.15cm]
+    connection with AP and vehicles
+    \begin{itemize}
+        \item[$\rightarrow$] transmission range changes
+        \item[$\rightarrow$] transmission needs to be adapted
+        \item[$\rightarrow$] these can lead to sync problems among vehicles
+    \end{itemize}
+\end{itemize}
+\subsection{Vehicular Networks: System Model}
+Introducing the context
+\begin{itemize}
+    \item Safe driving:
+    \begin{itemize}
+        \item[$\rightarrow$] alert messages $\rightarrow$ delivered quickly to all
+        cars following the one that is alerting (Abnormal Vehicles)\\
+        $\rightarrow$ need to generate a chain reaction
+        \item[$\rightarrow$] there are some problems:
+        \begin{itemize}
+            \item multiple transmission $\Rightarrow$ when every node is broadcasting
+            \item possible congestion $\Rightarrow$ alert unuseful $\rightarrow$ crashes
+            still can happen
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+For these reason, a system model with these characteristics is introduced:
+\begin{itemize}
+    \item high mobility of nodes
+    \item variable transmission range
+    \item a car cannot be sure to be the farthest car receiving that broadcast message
+    \item some approaches:
+    \begin{itemize}
+        \item[$\rightarrow$] MCDS (Minimum Connected Dominant Set):
+        \begin{itemize}
+            \item minimum cardinality set of connected nodes $\Rightarrow$ each
+            other node in the network is connected to a node of the MCDS set
+            \item MCDS nodes have to broadcast the message
+            \item it is optimal but non feasible solution $\rightarrow$
+            it needs creation of overlay\\structure $\Rightarrow$ to cover the network
+            \item it is dangerous because of deterministic failure
+            $\rightarrow$ what if a node in MCDS doesn't broadcast? $\rightarrow$ redundancy needed
+            redundancy needed
+            \item implementation with n nodes $\Rightarrow$ $O(n \cdot
+            log(n))$ control messages
+        \end{itemize}
+        \item[$\rightarrow$] RD (Redundancy Avoidance):
+        \begin{itemize}
+            \item based on backoff mechanism $\rightarrow$ if there is a
+            collision due congestion $\Rightarrow$ it reduces frequency
+            \item if following vehicle has already broadcast $\Rightarrow$ actual
+            nodes don't
+            \item it isn't considered the number of hops in these schemas
+        \end{itemize}
+        \item[$\rightarrow$] JS (Jamming Signal):
+        \begin{itemize}
+            \item it is Urban Multi-hop Broadcasting Protocol
+            \item it is used to determine next forwarder
+            \item vehicles which receve alert $\rightarrow$ it emits JS for
+            an amount of time\\ $\Rightarrow$ proportional to the distance from sender
+            \item The last vehicle stopping the JS knows it is the last one\\
+            $\rightarrow$ it forwards the alert message
+            \item JS phase delays the transmission of the message\\
+            $\Rightarrow$ not suitable for alert messages
+        \end{itemize}
+        \item[$\rightarrow$] CW (Contention Window):
+        \begin{itemize}
+            \item vehicles set CW inversely proportional to distance from sender
+            \item this implies:
+            \begin{itemize}
+                \item no control traffic
+                \item something unrealistic $\Rightarrow$ transmission rate not known\\
+                $\rightarrow$ it needs to be determined in order to find the last one
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Fast Broadcasting}
+Characteristics:
+\begin{itemize}
+    \item fast broadcast is a solution designed to have alert messages covering
+    the area of interest in as less time as possible (as few hops as possible)
+    \item there are two types:
+    \begin{itemize}
+        \item[$\rightarrow$] probabilistic:
+        \begin{itemize}
+            \item Pro $\rightarrow$ reliable
+            \item Cons $\rightarrow$ End-to-End delay
+        \end{itemize}
+        \item[$\rightarrow$] deterministic:
+        \begin{itemize}
+            \item Pro $\rightarrow$ End-to-End delay
+            \item Cons $\rightarrow$ reliable
+        \end{itemize} 
+    \end{itemize}
+    \item how it works:
+    \begin{itemize}
+        \item[$\rightarrow$] there are two phases:
+        \begin{itemize}
+            \item estimation phase $\rightarrow$ vehicles exchange hello
+            messages to collect info $\rightarrow$ in order to estimate
+            their own transmission range.
+            \item broadcasting phase $\rightarrow$ transmission range estimation used
+            to\\forward asap alert message to destination
+        \end{itemize}
+        \item[$\rightarrow$] here there is a detailed description of the two phases
+        \begin{enumerate}
+            \item estimation phase:
+            \begin{itemize}
+                \item continuosly run
+                \item time is splitted into rounds
+                \item one hello messages randomly sent every time round
+                \item hello contains
+                \begin{itemize}
+                    \item sender's position
+                    \item maximum frontward distance from which another vehicle\\
+                    has been heard transmitting an hello message
+                \end{itemize}
+                \item About messages:
+                \begin{itemize}
+                    \item two types:
+                    \begin{enumerate}
+                        \item[$\star$] hello $\rightarrow$ information to estimate transmission range
+                        \item[$\star$] alert $\rightarrow$ sender's transmission range
+                    \end{enumerate}
+                    \item variables:
+                    \begin{enumerate}
+                        \item[$\star$] CMBR (Current Maximum Backward Range)\\[0.15cm]
+                        $\rightarrow$ computed by hearing hello from the back
+                        $\Rightarrow$ someone could hear
+                        \item[$\star$] CMFR (Current Maximum Frontward Range)\\[0.15cm]
+                        $\rightarrow$ computed by hearing hello from the front
+                        $\Rightarrow$ I could hear
+                    \end{enumerate}
+                \end{itemize}
+            \end{itemize}
+            \item broadcast phase:
+            \begin{itemize}
+                \item alert is generated by an Abnormal Vehicle
+                \item alert is sent in broadcast to warn following vehicles
+                \item alert includes estimated transmission range for that hop
+                \item node receiving alert waits an amount of time\\
+                $\rightarrow$ proportional  to the node's position with respect to\\the
+                estimated maximum transmission range\\
+                ($\rightarrow$ near $\Rightarrow$ more time)
+                \item CW calculated as follow with R = range and D = distance:
+                \begin{center}
+                    $CW = \floor{(\frac{R_{max}-D}{R_{max}} \cdot (CW_{max}-CW_{min}))+CW_{min}}$
+                \end{center}
+                $\rightarrow$ if another car (farther from source) already forwarded\\
+                $\Rightarrow$ the other doesn't forward\\[0.15cm]
+                $\rightarrow$ wrong estimation $\Rightarrow$ possibly huge delay\\[0.15cm]
+                $\rightarrow$ dynamic transmission rate $\Rightarrow$ CW can be lower
+                for estimation
+            \end{itemize}
+        \end{enumerate}
+    \end{itemize}
+    \item ROFF (RObust Fast Forwarding):
+    \begin{itemize}
+        \item it is a multi-hop deterministic delay based
+        \item estimation $\rightarrow$ every vehicle sends hello every round\\
+        $\rightarrow$ neighbourhood discovery
+    \end{itemize}
+\end{itemize}
+
