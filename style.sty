@@ -33,6 +33,7 @@
 \DeclareFixedFootnote*{\footTIM}{Traffic Indicator Map}
 \DeclareFixedFootnote*{\footRFC}{Request For Comments}
 \DeclareFixedFootnote*{\footTTL}{Time To Leave}
+\DeclareFixedFootnote*{\footPER}{Packet Error Rate}
 %
 
 \usepackage[plain]{algorithm}      % algoritmi
@@ -97,6 +98,18 @@
 \setcounter{tocdepth}{5} 	% aggiunge all'indice i sottoparagrafi
 \usepackage{xr-hyper}		% riferimenti ipertestuali tra documenti
 \usepackage{hyperref}		% riferimenti ipertestuali
+\usepackage{blindtext}
+\usepackage{tikz}
+\newcommand{\tikzxmark}{%
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\tikzcmark}{%
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
 
 % copertina
 \newcommand{\copertina}{
@@ -115,8 +128,8 @@
             \vspace*{2cm}
 
             \Large{Authors:}\\
-            \Large{\textit{Alessandro Cavaliere}}\\
-            \Large{\textit{Brugnolaro Filippo}}			
+            \Large{\textit{Brugnolaro Filippo}}\\
+            \Large{\textit{Mister X}}			
 
             \vspace*{\fill}
 		\end{center}

@@ -61,7 +61,7 @@ Characteristics:
     \item it is tied to the Internet Protocol (IP)
 \end{itemize}
 
-\subsubsection{TCP reliability}
+\subsubsection{TCP Reliability}
 Characteristics:
 \begin{itemize}
     \item it is used checksum $\rightarrow$ to detect bit level errors
@@ -92,7 +92,7 @@ Characteristics:
             \begin{itemize}
                 \item packet loss
                 \item packet reordering
-                \item advertised window update
+                \item AWND update
             \end{itemize}
             \item Problem $\rightarrow$ TCP timeouts lead to inactivity periods
             \item Proposal $\rightarrow$ use 3 duplicate ACKs to trigger retransmission
@@ -112,7 +112,7 @@ Characteristics:
     \item Flow Control:
     \begin{itemize}
         \item[$\rightarrow$] it blocks the sender from overwhelming the receiver
-        \item[$\rightarrow$] Receiving side $\rightarrow$ Advertised Window in returning ACKs is set by receiver\\
+        \item[$\rightarrow$] Receiving side $\rightarrow$ AWND in returning ACKs is set by receiver\\
         $\Rightarrow$ how much space is left in its buffer
         \item[$\rightarrow$] Sending side $\rightarrow$ Sending Window represents the actual bytes sent out\\
         $SW = min(AW, CW)$ $\rightarrow$ min between advertised and congestion window
@@ -227,6 +227,7 @@ Characteristics:
     $\rightarrow$ recover from multiple losses in just one RTT
 \end{itemize}
 \subsubsection{TCP Vegas}
+\label{TCP-vegas-subsubsection}
 Characteristics:
 \begin{itemize}
     \item it is based on the assumption on throughput $\rightarrow$ actual $\leq$ expected\\
@@ -243,7 +244,7 @@ Characteristics:
         \item[$\rightarrow$] aggressive Window Adaptation
         \item[$\rightarrow$] modified Slow-Start
     \end{itemize}
-    \item Congestion Avoidance:
+    \item \hypertarget{congestion-avoidance-paragraph}{Modified Congestion Avoidance}:
     \begin{itemize}
         \item[$\rightarrow$] throughput $\rightarrow$ actual $\leq$ expected
         \item[$\rightarrow$] expected throughput $\rightarrow$ it is transmission rate with no other traffic/queue
@@ -266,7 +267,7 @@ Characteristics:
                 $\Rightarrow$ high congestion $\rightarrow$ prevent packet loss
             \end{itemize}
         \end{itemize}
-        \item[$\rightarrow$] CWND is updated every RTT. If:
+        \item[$\rightarrow$] CWND is updated every RTT $\rightarrow$ if:
         \begin{itemize}
             \item expected $-$ actual $< \alpha$\\
             $\Rightarrow$ CWND $=$ $\frac{\text{CWND} + 1}{\text{CWND}}$
@@ -277,10 +278,63 @@ Characteristics:
         \end{itemize}
         \begin{figure}[!h] 
             \centering 
-            \includegraphics[scale = 0.4]{images/congestion-avoidance-vegas.png} 
+            \includegraphics[scale = 0.35]{images/congestion-avoidance-vegas.png} 
             \caption{Modified Congestion Avoidance in TCP Vegas}
             \label{congestion-avoidance-vegas}
         \end{figure}
     \end{itemize}
+    \item Aggressive Retransmission $\rightarrow$ with 3 dupacks:
+    \begin{itemize}
+        \item[$\rightarrow$] 1\textsuperscript{st} and 2\textsuperscript{nd} packets $\rightarrow$ it checks timeout
+        \item[$\rightarrow$] if timeout expires $\Rightarrow$ immediately retransmission
+    \end{itemize}
+    \item Aggressive CWND update $\rightarrow$ 3 different types of update:
+    \begin{itemize}
+        \item[$\rightarrow$] recovery $\rightarrow$ CWND becomes $\frac{3}{4}$ when it enters into recovery\\
+        $\rightarrow$ instead of $\frac{1}{2}$
+        \item[$\rightarrow$] multiple loss $\rightarrow$ CWND is reduced by 1 size
+        \item[$\rightarrow$] initial setting $\rightarrow$ CWND is set on dimension 2 $\rightarrow$ instead of 1 
+    \end{itemize}
+    \item Modified Slow Start:
+    \begin{itemize}
+        \item[$\rightarrow$] TCP keeps the congestion window fixed in every
+        other RTT\\$\rightarrow$ it measures the throughput
+        \item[$\rightarrow$] Given:
+        \begin{itemize}
+            \item static parameter $\gamma$ as value $\frac{1 \text{packet}}{RTT}$
+            \item actual and expected throughput defined as backwards (§\ref{TCP-vegas-subsubsection})
+        \end{itemize}
+        on every next RTT, it does the followings:
+        \begin{itemize}
+            \item if expected $-$ actual$< \gamma$ $\rightarrow$ continue Slow Start:
+            \begin{itemize}
+                \item CWND $=$ $2$ $\cdot$ CWND for each RTT
+                \item CWND = CWND $+$ $1$ for each ACK
+                \item[$\Rightarrow$] Exponential Increase
+            \end{itemize}
+            \item if expected $-$ actual$> \gamma$ $\rightarrow$ switch to Congestion Avoidance:
+            \begin{itemize}
+                \item Set SSThreshold $=$ CWND
+                \item follow \hyperlink{congestion-avoidance-paragraph}{Congestion Avoidance}'s rules written before
+            \end{itemize}
+            \begin{figure}[!h] 
+                \centering 
+                \includegraphics[scale = 0.4]{images/slow-start-vegas.png} 
+                \caption{Modified Slow Start in TCP Vegas}
+                \label{modified-slow-start-vegas}
+            \end{figure}
+        \end{itemize}
+    \end{itemize}
+    \item Retrocompatibility:
+    \begin{itemize}
+        \item[$\rightarrow$] it is sensible to delay variations
+        \item[$\rightarrow$] it can't coexists with other versions
+        \item[$\rightarrow$] Example:\\[0.15cm]
+        When a TCP Vegas flow shares the same bottleneck with a TCP New Reno\\
+        $\rightarrow$ as soon as the pipe is full and packets get buffered\\
+        $\Rightarrow$ TCP Vegas reduces its data rate\\
+        $\Rightarrow$ more space to TCP New Reno\\
+        $\rightarrow$ it continues its growth till congestion
+    \end{itemize}
+    \item[$\rightarrow$] for the example this makes vegas not used $\rightarrow$ but it inspires other protocols
 \end{itemize}
-%\subsubsection{TCP Westwood}
