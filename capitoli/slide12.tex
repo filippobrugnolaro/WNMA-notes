@@ -1,0 +1,252 @@
+\section{802.11 Standard}
+There are a lot of different standards:
+\begin{itemize}
+    \item to enhance QoS, interoperability with existing technologies
+    \item to enhance speed, spectrum occupied, freuquncy, \dots
+    \item for particular use cases (VANET, \dots)
+\end{itemize}
+Recent standards must be retrocompatible and some of them are:
+\begin{itemize}
+    \item n $\rightarrow$ Wi-Fi 4 $\rightarrow$ new denomination by Wi-Fi A lliance
+    \item ac $\rightarrow$ Wi-Fi 5 $\rightarrow$ MIMO, > bandwidth than n$\rightarrow$
+    up to 500 Mbps
+    \item ax $\rightarrow$ Wi-fi 6 $\rightarrow$ > frequency range, < latency, uplink multiuser MIMO
+    \item be $\rightarrow$ Wi-fi 7 $\rightarrow$ 3 main frequency, coordinated multiuser MIMO
+    \item mc $\rightarrow$ indoor localization $\rightarrow$ using Wif-fi Round Trip Time (Wi-fi RTT) 
+\end{itemize}
+\subsection{802.11e}
+Characteristics:
+\begin{itemize}
+    \item standard with a QoS $\rightarrow$ technology must provide specific quality
+    \item Exchanges system:
+    \begin{itemize}
+        \item[$\rightarrow$] Before
+        \begin{itemize}
+            \item DCF (Distributed Coordination Function)\\
+            $\Rightarrow$ classic approach
+            \item PCF (Point Coordination Function)\\
+            $\Rightarrow$ $\approx$ polling 
+        \end{itemize}
+        \item[$\rightarrow$] Now
+        \begin{itemize}
+            \item EDCA (Enhanced Distributed Channel Access $\rightarrow$ Priority Scheme)
+            \item HCCA (Hybrid Controlled Channel Access $\rightarrow$ Parametrized QoS Scheme)
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\subsubsection{DCF (Distributed Coordination Function)}
+Characteristics:
+\begin{itemize}
+    \item it is the basic access method
+    \item it uses CSMA/CA $\rightarrow$ if channel is:
+    \begin{itemize}
+        \item[$\rightarrow$] free $\Rightarrow$ it waits DIFS + CW and then transmit if still free
+        \item[$\rightarrow$] busy $\Rightarrow$ so:
+        \begin{itemize}
+            \item random exponential backoff a number of slots (from 32 to 1024)
+            \item count down slots as long as Medium is not busy
+            \item count down $=$ 0 $\rightarrow$ if packet fails (collision)
+            $\Rightarrow$ exponential back-off again with increased random window
+        \end{itemize}
+    \end{itemize}
+    \item Contention Windows (CW):
+    \begin{itemize}
+        \item[$\rightarrow$] it is a random number selected in the interval [0,CW]
+        \item[$\rightarrow$] small value for CW $\Rightarrow$ so:
+        \begin{itemize}
+            \item < wasted idle slots time
+            \item > number of collisions with multiple senders 
+        \end{itemize}
+        \item[$\rightarrow$] optimal CW, knowing number of nodes and size of packets, is obtained:
+        \begin{itemize}
+            \item minimizing time wastage $\rightarrow$ collisions/empty simultaneous
+            \item hard to implement $\rightarrow$ number of nodes hard to estimate + dynamic
+        \end{itemize}
+        \item[$\rightarrow$] adaptive CW
+        \item[] \begin{itemize}
+            \item idea:
+            \begin{itemize}
+                \item start with CW $=$ 31
+                \item no CTS/ACK $\Rightarrow$ increase size to 2 $\cdot$ CW $+$ 1
+                \item successful transmission $\Rightarrow$ reset CW $=$ 31
+            \end{itemize}
+            \item adaptive scheme is unfair\\[0.15cm]
+            $\rightarrow$ luckily nodes can transmit several packets while other are waiting
+            $\Rightarrow$ unlucky nodes continue doubling CW $\rightarrow$ no transmission
+            \item Adaptive CW doesn't provide QoS
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\subsubsection{PCF (Point Coordination Function)}
+Characteristics:
+\begin{itemize}
+    \item priority system centrally controlled $\rightarrow$ Point Coordinator (usually AP)
+    \item after each beacon $\rightarrow$ there is Contention Period and Contention Free Access\\[0.15cm]
+    $\rightarrow$ fixed length of time after a beacon $\rightarrow$ synchronized to beacon intervals
+    \item it uses PIFS to keep control $\rightarrow$ < than DCF
+    \item Point Coordinator keeps list of station elegible for polling
+    \item it is not used in practice:
+    \begin{itemize}
+        \item[$\rightarrow$] not compatible with certain traffic flows (voice, video, \dots)\\[0.15cm]
+        $\Rightarrow$ no bandwidth reservstion / no traffic characterisation
+        \item[$\rightarrow$] no back-to-back transmission of packets
+    \end{itemize}
+\end{itemize}
+\subsubsection{ECDA (Enhanced Distributed Channel Access)}
+Characteristics:
+\begin{itemize}
+    \item there are 4 Access Categories (AC) + 8 Traffic Classes (TC)
+    \item Max Service Data Unit (MSUD) delivered through multiple backoffs\\[0.15cm]
+    $\rightarrow$ with one station using specific AC parameters
+    \item each AC starts to backoff $\rightarrow$ after detecting channel being idle for AIFS
+    \item after waiting AIFS $\rightarrow$ each backoff sets number from interval [1, CW$+$1]
+    \item CW$_{new}$[AC] $=$ ((CW$_{old}$[TC]$+$1) $\cdot$ PF)
+    \item CA is realised with different parameters:
+    \begin{itemize}
+        \item[$\rightarrow$] AIFS[AC] $=$ Arbitration Inter-Frame Space
+        \item[$\rightarrow$] CW$_{min}$[AC] (or CW$_{max}$[AC]) $=$ Contention Window min (or max)
+        \item[$\rightarrow$] PF[AC] $=$ Persistence Factor
+    \end{itemize}
+    \item similar to DCF with priorities:
+    \begin{enumerate}
+        \item voice
+        \item video
+        \item best effort
+        \item background
+    \end{enumerate}
+    $\Rightarrow$ bursting (more packets at once) possible only for video/voice\\[0.15cm]
+    $\rightarrow$ different min/max backoff (hard to find) $\Rightarrow$ gives advantage to some type of traffic ($\Rightarrow$ > CW after backoff)
+    \item Pros:
+    \begin{itemize}
+        \item[$\rightarrow$] voice/video are prioritised over data
+        \item[$\rightarrow$] it works well if network is lightly loaded
+        \item[$\rightarrow$] no stream setup required
+        \item[$\rightarrow$] high power save respect to legacy version 
+    \end{itemize}
+    \item Cons:
+    \item \begin{itemize}
+        \item[$\rightarrow$] it is not fair $\rightarrow$ lower priority still need to be transmitted
+        \item[$\rightarrow$] there can be competition of stream of the same category\\
+        $\rightarrow$ diffcult to guarantee high bandwidth, low latency \dots
+        \item[$\rightarrow$] it relies on STA/AP to control priorities $\rightarrow$ QoS variation occurs
+    \end{itemize}
+    \item Admission Control:
+    \begin{itemize}
+        \item[$\rightarrow$] it introduces to guarantee QoS to ECDA
+        \item[$\rightarrow$] it limit admission to an Access Category (vioce and video)
+        \begin{itemize}
+            \item it limits the latency of QoS streams
+            \item it prevents too many streams such that bandwidth can't handle them
+        \end{itemize}
+        \item[$\rightarrow$] Flow:
+        \begin{enumerate}
+            \addtolength{\itemindent}{-0.3cm}
+            \item AP advertises ACM bit in beacon\\
+           \hspace*{-0.3cm}$\rightarrow$ indicating if admission control is required for any Access Category
+           \item STA sends AddTS\footAddTS Reuqest Action Frame to AP $\rightarrow$ which includes a
+           \hspace*{-0.3cm}TSPEC:
+           \begin{itemize}
+            \addtolength{\itemindent}{-0.3cm}
+            \item Nominal MSUD size
+            \item Mean data rate
+            \item Min PHY rate
+            \item Surplus bandwidth allowance (SBA)
+           \end{itemize}
+           \item AP runs admission control algorithm and sends back the response to
+           \hspace*{-0.3cm}STA using AddTS Response Action Frame
+        \end{enumerate}
+        $\Rightarrow$ STA checks used time\\
+        $\rightarrow$ if used\_time > medium\_time $\Rightarrow$ STA must use AC's ECDA parameters
+    \end{itemize}
+    \item Pros:
+    \begin{itemize}
+        \item[$\rightarrow$] ECDA improvement:
+        \begin{itemize}
+            \item it contains high priority streams
+            \item it protects streams in progress 
+        \end{itemize}
+        \item[$\rightarrow$] TSPEC canspecify traffic specification desidered
+    \end{itemize}
+    \item[$\rightarrow$] Cons:
+    \begin{itemize}
+        \item[$\rightarrow$] bandwidth efficiency not optimum
+        \item[$\rightarrow$] fairness not guaranteed for streams of the same category
+    \end{itemize} 
+\end{itemize}
+\subsubsection{HCCA}
+Characteristics:
+\begin{itemize}
+    \item it is extension of PCF with Contention Free Period
+    \item there is an hybrid controller (HC) which initiates HCCA and PCF:
+    \begin{itemize}
+        \item[$\rightarrow$] it provides CF-poll to station to provide transmission opportunities
+        \item[$\rightarrow$] it specifies start$_{time}$ and max$_{dur}$ $\rightarrow$ other stations can't acces to the medium
+        \item[$\rightarrow$] STA transmits within SIFS and then using PIFS periods
+        \item[$\rightarrow$] if no transmission after PIFS $\Rightarrow$ so:
+        \begin{itemize}
+            \item it issues new transmission opportunity
+            \item it issues end of CFP
+        \end{itemize} 
+        \item[$\rightarrow$] CFPs can be synchronized to individual source of traffic intervals
+    \end{itemize} 
+    \item it allows for CFPs being initiated at any time during CP\\
+    $\rightarrow$ called CAP (Control Access Phase):
+    \begin{itemize}
+        \item[$\rightarrow$] it is initiated by AP (if it wants to send a frame or receive one from STA) $\rightarrow$ contention free manner guarantee
+        \item[$\rightarrow$] during a CAP $\rightarrow$ HC (i.e. AP) controls the access to the medium
+        \item[$\rightarrow$] during CP $\rightarrow$ all stations function in ECDA
+    \end{itemize}
+    \item HC is not limited to per-station quering $\rightarrow$ it can provide per-session service
+    \item Advantages:
+    \begin{itemize}
+        \item efficient use of bandwidth $\rightarrow$ CFP used, channel free as soon as\\packet is sent for that transmission opportunity
+        \item latency guarantee $\rightarrow$ grant transmission opportunities as required by TSPEC
+        \item bandwidth guarantee $\rightarrow$more efficient use of ECDA $\rightarrow$ no limited backoff
+        \item all STA/AP hearing QoS poll will obey to transmission opportunity
+        \item ACK from QSTA should include duration field $\rightarrow$ outstanding\\transmission time
+        $\Rightarrow$ extend range of CFP to other networks
+    \end{itemize}
+    \item Disadvantages:
+    \begin{itemize}
+        \item complex scheduler $\rightarrow$ more complexity in general
+        \item overlapping HCCA networks have transmission opportunity problems
+    \end{itemize}
+\end{itemize}
+\subsection{802.11n}
+Characteristics:
+\begin{itemize}
+    \item it enables new consumers (enterprise application)\\
+    $\rightarrow$ thanks to more bandwidth, ranging, throughput, \dots $\rightarrow$ QoS
+    \item High data rate (up to 300 Mbps with 2 MIMO devices)
+    \item legacy support
+    \item Components:
+    \begin{itemize}
+        \item[$\rightarrow$] PHY (2.4/5 GHz):
+        \begin{itemize}
+            \item support of OFDM modulation
+            \item MIMO with spacial multiplexing
+            \item higher throughput $\rightarrow$ combination of adjacent channels
+        \end{itemize}
+        \item[$\rightarrow$] MAC:
+        \begin{itemize}
+            \item aggregation methods $\rightarrow$ pack smaller packets into single MPUD
+            \item combined ACK $\rightarrow$ no need to ACK every packet, once every few time
+        \end{itemize}
+    \end{itemize}
+    \item MIMO (Multiple Input Multiple Output):
+    \begin{itemize}
+        \item[$\rightarrow$] it transmits and receives with multiple radios simultaneously on the\\same spectrum
+        \item[$\rightarrow$] outages are reduced $\rightarrow$ using INFO from differnet antennas
+        \item[$\rightarrow$] multiple power amplifiers $\Rightarrow$ more transmission power
+        \item[$\rightarrow$] higher throughput
+        \item[$\rightarrow$] interferences limited with some techniques 
+    \end{itemize}
+    \item SISO (Single Input Single Output):
+    \begin{itemize}
+        \item simple and low cost
+        \item outages can occur if antennas fall into null $\rightarrow$ need to switch antenna
+        \item energy wastage by sending in all direction $\rightarrow$ possibly more interferences
+        \item more sensitive to interferences
+        \item Output power limited by single power amplifier
+    \end{itemize}
+\end{itemize}
