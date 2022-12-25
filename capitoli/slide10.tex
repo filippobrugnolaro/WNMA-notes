@@ -12,8 +12,313 @@ Localization $\rightarrow$ can provide a lot of useful services (best route, tra
     \item Indoor $\rightarrow$ not easy (GPS signal not working)\\
     $\Rightarrow$ lots of applications can be built $\rightarrow$ with wide use of smartphones
 \end{itemize}
-Some characteristics:
+Some notation:
 \begin{itemize}
-    \item 
+    \item Environment $\rightarrow$ assumed to have cartesian coordinates
+    \item Mobile Station (MS) $\rightarrow$ device to be localized
+    \item Base Station (BS) $\rightarrow$ infrastructure component such as Access Point \dots
 \end{itemize}
-To assess a technology for indoor localization we can use several metrics
+Here there are some characteristics which describe better inddor localization
+
+\subsection{Metrics}
+Some metrics are:
+\begin{itemize}
+    \item Accuracy $\rightarrow$ average error between estimated
+    and actual measure\\
+    $\Rightarrow$ how much difference there is between measures
+    \item Precision $\rightarrow$ error distribution of actual position
+    vs the estimated one\\
+    $\Rightarrow$ how measures are spread
+    \item Robustness $\rightarrow$ ability in maintaining accurate
+    estimation\\$\rightarrow$ even when chaging the context/environment
+    \item Scalability $\rightarrow$ system behavior when changing 
+    number/density devices
+    \item Cost $\rightarrow$ includes hardware, initial set up, maintenance
+    \dots
+\end{itemize}
+
+\subsection{Approaches}
+\begin{itemize}
+    \item Triangulation:
+    \begin{itemize}
+        \item[$\rightarrow$] it requires knowledge about arrival angles of signal\\
+        emitted by MS $\Rightarrow$ received by BS
+        \item[$\rightarrow$] characteristics:
+        \begin{itemize}
+            \item at least 2 angles are needed
+            \item it requires complex hardware on BS
+            \item indoor signal may be disturbed (walls \dots)
+            \item not really usable for strong multipath effects
+        \end{itemize}
+    \end{itemize}
+    \item Trilateration:
+    \begin{itemize}
+        \item[$\rightarrow$] it requires knowledge of the distance between MS and BS
+        \item[$\rightarrow$] 2D $\Rightarrow$ 3BS, 3D $\Rightarrow$ 4 BS
+    \end{itemize}
+\end{itemize}
+\vspace*{0.3cm}
+Distance Estimation is done $\rightarrow$ propagation
+time of radio signal\\[0.15cm]
+$\Rightarrow$ electromagnetic waves with speed of light $\Rightarrow$
+$d = c \cdot t_{prop}$
+\begin{itemize}
+    \item Time Of Arrival (TOA):
+    \begin{itemize}
+        \item[$\rightarrow$] MS and BS need synchronization $\Rightarrow$ it is hard
+        \item[$\rightarrow$] how it works:
+        \begin{itemize}
+            \item BS emits signal to MS $\rightarrow$ including time end trasmission (t$_\text{1}$)
+            \item MS completes reception of signal at time (t$_\text{2}$)
+            \item MS computes propagation time $\rightarrow$ $t_{prop} = t_2 - t_1$
+        \end{itemize}
+    \end{itemize}
+    \item RTT (Round Trip Time):
+    \begin{itemize}
+        \item[$\rightarrow$] it doesn't require data exchange or clock synchronization
+        \item[$\rightarrow$] it measures time for path MS $\rightarrow$ BS $\rightarrow$ MS
+        \item[$\rightarrow$] so time propagation is $t_{prop} = \frac{t_{remote} - t_{local}}{2}$\\[0.15cm]
+        $\rightarrow$ where:
+        \begin{itemize}
+            \item $t_{local}$ $\rightarrow$ depends on reaction time of hardware
+            \item $t_{remote}$ $\rightarrow$ from data to ACK
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\vspace*{0.3cm}
+Measurement Error:
+\begin{itemize} 
+    \item it depends on granularity of timer useed to measure
+    \item Example:\\[0.15cm]
+    \hspace*{-0.05cm}802.11 MAC layer $\rightarrow$ hardware allows timestamp packet  1$\mu$s precision\\
+    $\Rightarrow$ it is high for indoor buildings $\rightarrow$ granularity of 300 m at speed light\\
+    $\rightarrow$ 1 ns could be OK
+    \item precision is not sufficient so there are 2 approaches:
+    \begin{itemize}
+        \item[$\rightarrow$] Hardware:
+        \begin{itemize}
+            \item it uses timestamp provided by modified hardware
+            \item it is used specific hardware to trigger MAC layer counter\\
+            $\rightarrow$ based on WLAN board's clock
+            \item $\approx 7$ m precision
+            \item it can be competitionbined with software approaches
+            \item measurements done in lowest possible layer (MAC layer)\\
+            $\Rightarrow$ to avoid software delays of other layers
+            \item RTT is measured with data ACK (from reception of data to SIFS)
+        \end{itemize}
+        \newpage
+        \item[$\rightarrow$] Software:
+        \begin{itemize}
+            \item it uses multiple measurements to obtain estimation close to\\
+            actual value
+            \item timestamp is provided by regular WLAN boards\\
+            $\rightarrow$ only for received packets
+            \item need to introduce monitoring station:
+            \begin{itemize}
+                \item to monitor communications between MS/BS
+                \item it is better if it is closer to MS
+                \item it collects a lot of timestamp both for send/received packets\\
+                $\rightarrow$ then estimates the distance 
+            \end{itemize}
+            \item Goodtry:
+            \begin{itemize}
+                \item developed for research purposes
+                \item it measures RTS - CTS - DATA - ACK sequences\\[0.15cm]
+                $\rightarrow$ measuring twice the RTT for each transmission
+                \item positioning is done through the lowest weigth squared error\\[0.15cm]
+                $\rightarrow$ management of multiple measurements
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\subsection{Other Approaches}
+Different approaches are:
+\begin{itemize}
+    \item TDOA (Time Difference Of Arrival)
+    \begin{itemize}
+        \item[$\rightarrow$] it measures arrival time of signal emitted by MS towards multiple BS
+        \item[$\rightarrow$] it exploits differences among the arrival times to extract the MS position\\
+        $\Rightarrow$ not suitable for self-positioning
+        \item[$\rightarrow$] characteristics:
+        \begin{itemize}
+            \item sync needed for BSs $\rightarrow$ 2D $\Rightarrow$ 3BS, 3D $\Rightarrow$ 4BS
+            \item server needed to manage both sync and measurements collection
+        \end{itemize} 
+    \end{itemize}
+    \item Scene Analysis:
+    \begin{itemize}
+        \item[$\rightarrow$] method composed by 2 phases:
+        \begin{enumerate} 
+            \item fingerprint collection $\rightarrow$ start to collect fingerprints of known location of
+            different BSs $\Rightarrow$ fingerprint $=$ signal strength and other parameters
+            \item actual evaluation $\rightarrow$ it compares actual values with the stored ones\\
+            $\rightarrow$ with AI algorithms (SVM, k-NN \dots) or statistical methods
+        \end{enumerate}
+        \item[$\rightarrow$] it is not robust $\rightarrow$ because new room $\Rightarrow$ new fingerprint to be collected\\
+        $\Rightarrow$ big initial effort and offline training
+        \item[$\rightarrow$] 2D $\Rightarrow$ 3BS, 3D $\Rightarrow$ 4BS
+        \item[$\rightarrow$] RSS (Recieved Signal Strength) depends on:
+        \begin{itemize}
+            \item Multipath $\rightarrow$ measured strength is higher than ideal\\
+            $\Rightarrow$ because of reflected signals
+            \item Shadowing $\rightarrow$ in case of NLOS (non-light-of-sight) $\Rightarrow$
+            signal can't be easily computed $\Rightarrow$ signal absorbed
+            \item Moving Objects $\rightarrow$ cause high obscillations of RSS\\$\rightarrow$
+            need multiple measurements
+        \end{itemize}
+        \item[$\rightarrow$] k-NN (k-Nearest Neighbour) algorithm:
+        \begin{itemize}
+            \item Given this notation first:
+            \begin{itemize}
+                \item m $=$ number of BS's
+                \item n $=$ number of fingerprints in the training set
+                \item S$_i$ $=$ fingerprint corresponding to point $(x_i$, $y_i$, $z_i)$ of training set
+                \item s $=$ Measurement of RSS performed by MS in online phase          
+            \end{itemize}
+            \item it computes distance $s$ from every fingerprint in the training set
+            \item k points are chosen in the training set with smallest d$_i^2$ values
+            \item MS coordiantes $\rightarrow$ estimated as either:
+            \begin{itemize}
+                \item mean of coordinates of k locations
+                \item weighted mean of distances
+            \end{itemize} 
+        \end{itemize}
+    \end{itemize}
+    \item RFID (Radio Frequency Identification) $\rightarrow$ system composed of:
+    \begin{itemize}
+        \item[$\rightarrow$] RFID reader:
+        \begin{itemize}
+            \item it emits a signal to query tags which are in proximity
+            \item it receives the ID of each tag as a response
+            \item it is the most expensive
+        \end{itemize}
+        \item[$\rightarrow$] RFID tag:
+        \begin{itemize}
+            \item it answers reader's queries with its ID $\rightarrow$ the way it is done can be:
+            \begin{itemize}
+                \item passive $\rightarrow$ cheaper, short range, long life battery
+                \item active $\rightarrow$ expensive, long range, short life battery
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    \item Active RFID example (Landmark):
+    \begin{itemize}
+        \item[$\rightarrow$] it is a positioning system that exploits active RFID
+        \item[$\rightarrow$] it uses scene analysis based on RSSI
+        \item[$\rightarrow$] fingerprinter is considered as an array of RSSI\\
+        $\Rightarrow$ emitted by tag and received by MS
+        \item[$\rightarrow$] it is composed of:
+        \begin{itemize}
+            \item RFID readers $\rightarrow$ used as BS, communicate with localization servers
+            \item Reference tag $\rightarrow$ tag with known coordinates
+            \item Tracking tag $\rightarrow$ tag to be localized (MS)
+        \end{itemize}
+        \item[$\rightarrow$] it is robust because:
+        \begin{itemize}
+            \item reference tag doesn't require offline phase
+            \item reference tag position can be dynamically measured
+        \end{itemize} 
+        \item[$\rightarrow$] for localization k-NN is used $\rightarrow$ so:
+        \begin{itemize}
+            \item it compares signal of tracking/reference tag
+            \item system can be affected by the hardware\\[0.15cm]
+            $\Rightarrow$ not all RFID readers provide sufficiently fine granularity of RSS\\[0.15cm]
+            $\rightarrow$ active RFID tags are powered by a battery
+            $\rightarrow$ system requires that\\transmission power of all tags has to be similar\\[0.15cm]
+            $\Rightarrow$ need to use RFID tags of the same type and with the same level of battery to make a comparison
+        \end{itemize}
+    \end{itemize}
+    \item Passive RFID:
+    \begin{itemize}
+        \item[$\rightarrow$] it is ok and less expensive when there is:
+        \begin{itemize}
+            \item wide space
+            \item need to lacalize few nodes
+        \end{itemize}
+        \item[$\rightarrow$] Pro:
+        \begin{itemize}
+            \item less expensive
+            \item ok for automated environments $\rightarrow$ predictable and low mobility
+        \end{itemize}
+        \item[$\rightarrow$] Cons:
+        \begin{itemize}
+            \item training phase is expensive\\$\rightarrow$ need of more snapshots ($\Rightarrow$ $\neq$ measures of same location)
+            \item not to robust to environment changes
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Augmented Reality (AR)}
+Characteristics:
+\begin{itemize}
+    \item it is based on the superimposition of informative
+    levels to the real world\\(virtual, multimedia, geolocalized elements, \dots)
+    \item it uses GPS, compass, accelerometer to adjust position/informations
+    \item it is used position extraction through artificial markers (there is ARToolKit)\\
+    $\rightarrow$ need to know position of the markers in the camera
+    \item Coordinates translation (basics):
+    \begin{itemize}
+        \item[$\rightarrow$] position of object in space is represented by a matrix M with some rotation/translation submatrices
+        \item[$\rightarrow$] given a point $P$, to extract cordinates of a point $P'$\\
+        $\Rightarrow$ M $\cdot$ (matrix with coordinates of P)
+        \item[$\rightarrow$] ARToolKit provides:
+        \begin{itemize}
+            \item $P_m$ $=$ position of marker in camera reference system
+            \item $P_c$ $=$ position of camera in marker reference system $\Rightarrow$ $P_c = P_m^{-1}$
+            \item from $P_c$ it is possible to extract translation array $T_c$
+            \item it is possible to derive the marker global position thanks to the\\
+            translation matrix $T_c$
+        \end{itemize}
+    \end{itemize}
+    \item Refernce Systems:
+    \begin{itemize}
+        \item[$\rightarrow$] with a tag $\rightarrow$ it is possible to superimpose the object\\
+        $\rightarrow$ determine its position is determined respect of what you're looking at
+        \item[$\rightarrow$] with a camera $\rightarrow$ try to determine camera position respect of tag by using a picture
+        \item[$\rightarrow$] your position $\Rightarrow$ tag position $\rightarrow$ if you find a tag $\Rightarrow$ you can be localized
+        \item[$\rightarrow$] coverage of system $\Rightarrow$ 5 MP images can recognize a 20x20 cm marker at 11 m of distance
+        \item[$\rightarrow$] error sources can happen because:
+        \begin{itemize}
+            \item smartphone generates JPEG (quality loss)\\
+            $\rightarrow$ min compression $\Rightarrow$ good results
+            \item calibration helps to compensate optic errors ($\Rightarrow$ distorted images)
+            \item position estimation error $\rightarrow$ proportional to due to the error in the orientation computation
+        \end{itemize} 
+    \end{itemize}
+    \item Multimarker:
+    \begin{itemize}
+        \item[$\rightarrow$] reasons:
+        \begin{itemize}
+            \item experiments with single marker/tag $\Rightarrow$ too many errors
+            \item if markers appear not frontally to camera $\Rightarrow$ less errors
+        \end{itemize}
+        \item[$\rightarrow$] it can be:
+        \begin{itemize}
+            \item planar
+            \item octagonal
+        \end{itemize}
+        \item[$\rightarrow$] creation of Octagonal Multimarker algorithm
+        \begin{itemize}
+            \item it is made of markers on different planes
+            \item estimations on camera position and pictures are made
+            \item non-frontal markers are privileged
+        \end{itemize}
+        \item[$\rightarrow$] Results:
+        \begin{itemize}
+            \item 2 markers are enough
+            \item average error is near 22cm
+        \end{itemize}
+        \item[$\rightarrow$] Advantages respect to radiowaves systems:
+        \begin{itemize}
+            \item high precision
+            \item lower cost for the hardware
+            \item lower installation/configuration time $\rightarrow$ < to
+            scene analysis methods
+        \end{itemize}
+        \item[$\rightarrow$] Disadvantages respect to radiowaves systems:
+        \begin{itemize}
+            \item Line of sight should be free between smartphone and one marker
+            \item Semi-automatic system
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
