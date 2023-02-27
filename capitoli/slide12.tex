@@ -2,17 +2,17 @@
 There are a lot of different standards:
 \begin{itemize}
     \item to enhance QoS, interoperability with existing technologies
-    \item to enhance speed, spectrum occupied, freuquncy, \dots
+    \item to enhance speed, spectrum occupied, frequency, \dots
     \item for particular use cases (VANET, \dots)
 \end{itemize}
 Recent standards must be retrocompatible and some of them are:
 \begin{itemize}
-    \item n $\rightarrow$ Wi-Fi 4 $\rightarrow$ new denomination by Wi-Fi A lliance
+    \item n $\rightarrow$ Wi-Fi 4 $\rightarrow$ new denomination by Wi-Fi Alliance
     \item ac $\rightarrow$ Wi-Fi 5 $\rightarrow$ MIMO, > bandwidth than n$\rightarrow$
     up to 500 Mbps
-    \item ax $\rightarrow$ Wi-fi 6 $\rightarrow$ > frequency range, < latency, uplink multiuser MIMO
-    \item be $\rightarrow$ Wi-fi 7 $\rightarrow$ 3 main frequency, coordinated multiuser MIMO
-    \item mc $\rightarrow$ indoor localization $\rightarrow$ using Wif-fi Round Trip Time (Wi-fi RTT) 
+    \item ax $\rightarrow$ Wi-Fi 6 $\rightarrow$ > frequency range, < latency, uplink multiuser MIMO
+    \item be $\rightarrow$ Wi-Fi 7 $\rightarrow$ 3 main frequency, coordinated multiuser MIMO
+    \item mc $\rightarrow$ indoor localization $\rightarrow$ using Wi-Fi Round Trip Time (Wi-Fi RTT) 
 \end{itemize}
 \subsection{802.11e}
 Characteristics:
@@ -30,7 +30,7 @@ Characteristics:
         \item[$\rightarrow$] Now
         \begin{itemize}
             \item EDCA (Enhanced Distributed Channel Access $\rightarrow$ Priority Scheme)
-            \item HCCA (Hybrid Controlled Channel Access $\rightarrow$ Parametrized QoS Scheme)
+            \item HCCA (Hybrid Controlled Channel Access $\rightarrow$ Parameterized QoS Scheme)
         \end{itemize}
     \end{itemize}
 \end{itemize}
@@ -82,13 +82,13 @@ Characteristics:
 \begin{itemize}
     \item priority system centrally controlled $\rightarrow$ Point Coordinator (usually AP)
     \item after each beacon $\rightarrow$ there is Contention Period and Contention Free Access\\[0.15cm]
-    $\rightarrow$ fixed length of time after a beacon $\rightarrow$ synchronized to beacon intervals
+    $\rightarrow$ fixed length of time after a beacon $\rightarrow$ synchronized to beacon's intervals
     \item it uses PIFS to keep control $\rightarrow$ < than DCF
-    \item Point Coordinator keeps list of station elegible for polling
+    \item Point Coordinator keeps list of station eligible for polling
     \item it is not used in practice:
     \begin{itemize}
         \item[$\rightarrow$] not compatible with certain traffic flows (voice, video, \dots)\\[0.15cm]
-        $\Rightarrow$ no bandwidth reservstion / no traffic characterisation
+        $\Rightarrow$ no bandwidth reservation / no traffic characterisation
         \item[$\rightarrow$] no back-to-back transmission of packets
     \end{itemize}
 \end{itemize}
@@ -127,13 +127,13 @@ Characteristics:
     \item \begin{itemize}
         \item[$\rightarrow$] it is not fair $\rightarrow$ lower priority still need to be transmitted
         \item[$\rightarrow$] there can be competition of stream of the same category\\
-        $\rightarrow$ diffcult to guarantee high bandwidth, low latency \dots
+        $\rightarrow$ difficult to guarantee high bandwidth, low latency \dots
         \item[$\rightarrow$] it relies on STA/AP to control priorities $\rightarrow$ QoS variation occurs
     \end{itemize}
     \item Admission Control:
     \begin{itemize}
         \item[$\rightarrow$] it introduces to guarantee QoS to ECDA
-        \item[$\rightarrow$] it limit admission to an Access Category (vioce and video)
+        \item[$\rightarrow$] it limit admission to an Access Category (voice and video)
         \begin{itemize}
             \item it limits the latency of QoS streams
             \item it prevents too many streams such that bandwidth can't handle them
@@ -143,7 +143,7 @@ Characteristics:
             \addtolength{\itemindent}{-0.3cm}
             \item AP advertises ACM bit in beacon\\
            \hspace*{-0.3cm}$\rightarrow$ indicating if admission control is required for any Access Category
-           \item STA sends AddTS\footAddTS Reuqest Action Frame to AP $\rightarrow$ which includes a
+           \item STA sends AddTS\footAddTS Request Action Frame to AP $\rightarrow$ which includes a
            \hspace*{-0.3cm}TSPEC:
            \begin{itemize}
             \addtolength{\itemindent}{-0.3cm}
@@ -165,7 +165,7 @@ Characteristics:
             \item it contains high priority streams
             \item it protects streams in progress 
         \end{itemize}
-        \item[$\rightarrow$] TSPEC canspecify traffic specification desidered
+        \item[$\rightarrow$] TSPEC can specify traffic specification desired
     \end{itemize}
     \item[$\rightarrow$] Cons:
     \begin{itemize}
@@ -180,7 +180,7 @@ Characteristics:
     \item there is an hybrid controller (HC) which initiates HCCA and PCF:
     \begin{itemize}
         \item[$\rightarrow$] it provides CF-poll to station to provide transmission opportunities
-        \item[$\rightarrow$] it specifies start$_{time}$ and max$_{dur}$ $\rightarrow$ other stations can't acces to the medium
+        \item[$\rightarrow$] it specifies start$_{time}$ and max$_{dur}$ $\rightarrow$ other stations can't access to the medium
         \item[$\rightarrow$] STA transmits within SIFS and then using PIFS periods
         \item[$\rightarrow$] if no transmission after PIFS $\Rightarrow$ so:
         \begin{itemize}
@@ -196,7 +196,7 @@ Characteristics:
         \item[$\rightarrow$] during a CAP $\rightarrow$ HC (i.e. AP) controls the access to the medium
         \item[$\rightarrow$] during CP $\rightarrow$ all stations function in ECDA
     \end{itemize}
-    \item HC is not limited to per-station quering $\rightarrow$ it can provide per-session service
+    \item HC is not limited to per-station querying $\rightarrow$ it can provide per-session service
     \item Advantages:
     \begin{itemize}
         \item efficient use of bandwidth $\rightarrow$ CFP used, channel free as soon as\\packet is sent for that transmission opportunity
@@ -236,7 +236,7 @@ Characteristics:
     \item MIMO (Multiple Input Multiple Output):
     \begin{itemize}
         \item[$\rightarrow$] it transmits and receives with multiple radios simultaneously on the\\same spectrum
-        \item[$\rightarrow$] outages are reduced $\rightarrow$ using INFO from differnet antennas
+        \item[$\rightarrow$] outages are reduced $\rightarrow$ using INFO from different antennas
         \item[$\rightarrow$] multiple power amplifiers $\Rightarrow$ more transmission power
         \item[$\rightarrow$] higher throughput
         \item[$\rightarrow$] interferences limited with some techniques 

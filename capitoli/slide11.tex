@@ -3,7 +3,7 @@ Characteristics:
 \begin{itemize}
     \item it comes from SIG (Special Internet Group) $\rightarrow$ big companies join forces\\
     $\Rightarrow$ aim was having a single protocol
-    \item it is a standar de facto since a lot of years
+    \item it is a standard de facto since a lot of years
     \item main goal $\rightarrow$ cable substitution
     \item it is done for:
     \begin{itemize}
@@ -15,7 +15,7 @@ Characteristics:
         \item[$\rightarrow$] ad hoc networking $\rightarrow$ more difficult to implement 
     \end{itemize}
 \end{itemize}
-Down here there is a descritption of main features of Bluetooth
+Down here there is a description of main features of Bluetooth
 \subsection{Architecture}
 \begin{itemize}
     \item it is a layered protocol $\rightarrow$ to cover most application layer use cases
@@ -28,12 +28,12 @@ Down here there is a descritption of main features of Bluetooth
             hopping, TX power \dots
             \item baseband $\rightarrow$ connection establishment in Piconet\\
             $\rightarrow$ packet format, timing, addressing
-            \item link manager protocol (LMP) $\rightarrow$ bluetooth setup among
+            \item link manager protocol (LMP) $\rightarrow$ Bluetooth setup among
             devices,\\security, authentication, encryption
             \item logical link control and adaptation protocol (L2CAP)\\
             $\rightarrow$ adapts upper-layer protocols with Baseband
             \item Service discovery protocol (SDP) $\rightarrow$ it gives device info/address\\
-            + establish connection with multiple bluetooth devices
+            + establish connection with multiple Bluetooth devices
         \end{itemize} 
         \item[$\rightarrow$] Mid protocols:
         \begin{itemize}
@@ -51,13 +51,13 @@ Down here there is a descritption of main features of Bluetooth
     \item this structure can lead to:
     \begin{itemize}
         \item[$\rightarrow$] high interoperability
-        \item[$\rightarrow$] combination of different protocols $\rightarrow$ different bluetooth models
-        \item[$\rightarrow$] possiblity to jump over layers which are far from each other
+        \item[$\rightarrow$] combination of different protocols $\rightarrow$ different Bluetooth models
+        \item[$\rightarrow$] possibility to jump over layers which are far from each other
     \end{itemize}
 \end{itemize}
 
 \subsection{Topology}
-Before talking about topology, there are some parameters of bluetooth radio and baseband
+Before talking about topology, there are some parameters of Bluetooth radio and baseband
 \begin{itemize}
     \item up to 7 simultaneous links in a logical star
     \item max data rate $=$ 1 Mbps
@@ -75,16 +75,16 @@ There are 3 types of topology:
     \item Piconet:
     \begin{itemize}
         \item[$\rightarrow$] collection of devices connected in an ad-hoc fashion
-        \item[$\rightarrow$] basic unit of bluetooth $\rightarrow$ there are two types:
+        \item[$\rightarrow$] basic unit of Bluetooth $\rightarrow$ there are two types:
         \begin{itemize}
             \item master
             \item slave
         \end{itemize} 
         \item[$\rightarrow$] One unit will act as master $\Rightarrow$ others as slaves for duration of connection
         \item[$\rightarrow$] Master sets clock and hopping pattern $\rightarrow$ determine channel and phase
-        \item[$\rightarrow$] Each piconet has a unique hopping pattern/ID
+        \item[$\rightarrow$] Each Piconet has a unique hopping pattern/ID
         \item[$\rightarrow$] Each master can connect to 7 simultaneous slaves or 200+
-        inactive\\(parked) slaves per piconet
+        inactive\\(parked) slaves per Piconet
         \item[$\rightarrow$] Setup and formation:
         \begin{enumerate}
             \item Inquiry scan protocol $\rightarrow$ to learn about:
@@ -114,21 +114,21 @@ There are 3 types of topology:
     \end{itemize}
     \item Scatternet:
     \begin{itemize}
-        \item[$\rightarrow$] it consists on interconnected piconets
-        \item[$\rightarrow$] there is only one master per piconet
-        \item[$\rightarrow$] shared node can be for piconet$_1$ / piconet$_2$ :
+        \item[$\rightarrow$] it consists on interconnected Piconets
+        \item[$\rightarrow$] there is only one master per Piconet
+        \item[$\rightarrow$] shared node can be for Piconet$_1$ / Piconet$_2$ :
         \begin{itemize}
             \item slave/slave
             \item slave/master (or viceversa)
             \item node with special features
         \end{itemize}
-        $\Rightarrow$ node can't be master of 2 piconets connected simultaneously\\
+        $\Rightarrow$ node can't be master of 2 Piconets connected simultaneously\\
         $\rightarrow$ no central network structure
         \item[$\rightarrow$] it allows many devices to share same area
         \item[$\rightarrow$] it makes efficient use of bandwidth
     \end{itemize}
 \end{itemize}
-\subsection{Adressing, Error Correction \& Versions}
+\subsection{Addressing, Error Correction \& Versions}
 \begin{itemize}
     \item Addressing:
     \begin{itemize}
@@ -179,7 +179,7 @@ Characteristics:
     \item created to satisfy new market needs:
     \begin{itemize}
         \item[$\rightarrow$] no new wires
-        \item[$\rightarrow$] easy to install and mantain $\rightarrow$ self-organizing, mesh networking
+        \item[$\rightarrow$] easy to install and maintain $\rightarrow$ self-organizing, mesh networking
         \item[$\rightarrow$] reliable $\rightarrow$ mesh redundancy, multiple channels, interface tolerance
         \item[$\rightarrow$] secure (AES 128) and scalable (65k devices)
         \item[$\rightarrow$] low power consumption $\rightarrow$ can sleep most of time on, long battery life
@@ -247,15 +247,15 @@ Generally:
     \item features $\rightarrow$ each one has its own use case\\
     $\rightarrow$ but ZigBee more suitable for low consumption and low data rate
     \item timing $\rightarrow$ ZigBee faster to perform networking activities + sleep awake trigger
-    \item consumption $\rightarrow$ bluetooth more expensive than ZigBee\\
+    \item consumption $\rightarrow$ Bluetooth more expensive than ZigBee\\
     $\Rightarrow$ but used in mobile phone use case $\rightarrow$ ok
 \end{itemize}
-The Bluetooth consortium is working on a new version of bluetooth.\\[0.2cm]
+The Bluetooth consortium is working on a new version of Bluetooth.\\[0.2cm]
 Wibree:
 \begin{itemize}
     \item performance similar to ZigBee
-    \item it is a bluetooth without frequency hopping 
-    \item it is a bluetooth with the possibility for nodes
+    \item it is a Bluetooth without frequency hopping 
+    \item it is a Bluetooth with the possibility for nodes
     to be asleep most of the time
     \item it has been adopted into Bluetooth specifications
     \item it will use the same hardware as Bluetooth (shared antenna)

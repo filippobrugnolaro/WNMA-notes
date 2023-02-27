@@ -18,7 +18,7 @@ Some notation:
     \item Mobile Station (MS) $\rightarrow$ device to be localized
     \item Base Station (BS) $\rightarrow$ infrastructure component such as Access Point \dots
 \end{itemize}
-Here there are some characteristics which describe better inddor localization
+Here there are some characteristics which describe better indoor localization
 
 \subsection{Metrics}
 Some metrics are:
@@ -30,7 +30,7 @@ Some metrics are:
     vs the estimated one\\
     $\Rightarrow$ how measures are spread
     \item Robustness $\rightarrow$ ability in maintaining accurate
-    estimation\\$\rightarrow$ even when chaging the context/environment
+    estimation\\$\rightarrow$ even when changing the context/environment
     \item Scalability $\rightarrow$ system behavior when changing 
     number/density devices
     \item Cost $\rightarrow$ includes hardware, initial set up, maintenance
@@ -68,7 +68,7 @@ $d = c \cdot t_{prop}$
         \item[$\rightarrow$] MS and BS need synchronization $\Rightarrow$ it is hard
         \item[$\rightarrow$] how it works:
         \begin{itemize}
-            \item BS emits signal to MS $\rightarrow$ including time end trasmission (t$_\text{1}$)
+            \item BS emits signal to MS $\rightarrow$ including time end transmission (t$_\text{1}$)
             \item MS completes reception of signal at time (t$_\text{2}$)
             \item MS computes propagation time $\rightarrow$ $t_{prop} = t_2 - t_1$
         \end{itemize}
@@ -88,7 +88,7 @@ $d = c \cdot t_{prop}$
 \vspace*{0.3cm}
 Measurement Error:
 \begin{itemize} 
-    \item it depends on granularity of timer useed to measure
+    \item it depends on granularity of timer used to measure
     \item Example:\\[0.15cm]
     \hspace*{-0.05cm}802.11 MAC layer $\rightarrow$ hardware allows timestamp packet  1$\mu$s precision\\
     $\Rightarrow$ it is high for indoor buildings $\rightarrow$ granularity of 300 m at speed light\\
@@ -101,7 +101,7 @@ Measurement Error:
             \item it is used specific hardware to trigger MAC layer counter\\
             $\rightarrow$ based on WLAN board's clock
             \item $\approx 7$ m precision
-            \item it can be competitionbined with software approaches
+            \item it can be combined with software approaches
             \item measurements done in lowest possible layer (MAC layer)\\
             $\Rightarrow$ to avoid software delays of other layers
             \item RTT is measured with data ACK (from reception of data to SIFS)
@@ -125,7 +125,7 @@ Measurement Error:
                 \item developed for research purposes
                 \item it measures RTS - CTS - DATA - ACK sequences\\[0.15cm]
                 $\rightarrow$ measuring twice the RTT for each transmission
-                \item positioning is done through the lowest weigth squared error\\[0.15cm]
+                \item positioning is done through the lowest weight squared error\\[0.15cm]
                 $\rightarrow$ management of multiple measurements
             \end{itemize}
         \end{itemize}
@@ -157,13 +157,13 @@ Different approaches are:
         \item[$\rightarrow$] it is not robust $\rightarrow$ because new room $\Rightarrow$ new fingerprint to be collected\\
         $\Rightarrow$ big initial effort and offline training
         \item[$\rightarrow$] 2D $\Rightarrow$ 3BS, 3D $\Rightarrow$ 4BS
-        \item[$\rightarrow$] RSS (Recieved Signal Strength) depends on:
+        \item[$\rightarrow$] RSS (Received Signal Strength) depends on:
         \begin{itemize}
             \item Multipath $\rightarrow$ measured strength is higher than ideal\\
             $\Rightarrow$ because of reflected signals
             \item Shadowing $\rightarrow$ in case of NLOS (non-light-of-sight) $\Rightarrow$
             signal can't be easily computed $\Rightarrow$ signal absorbed
-            \item Moving Objects $\rightarrow$ cause high obscillations of RSS\\$\rightarrow$
+            \item Moving Objects $\rightarrow$ cause high oscillations of RSS\\$\rightarrow$
             need multiple measurements
         \end{itemize}
         \item[$\rightarrow$] k-NN (k-Nearest Neighbour) algorithm:
@@ -177,7 +177,7 @@ Different approaches are:
             \end{itemize}
             \item it computes distance $s$ from every fingerprint in the training set
             \item k points are chosen in the training set with smallest d$_i^2$ values
-            \item MS coordiantes $\rightarrow$ estimated as either:
+            \item MS coordinates $\rightarrow$ estimated as either:
             \begin{itemize}
                 \item mean of coordinates of k locations
                 \item weighted mean of distances
@@ -233,7 +233,7 @@ Different approaches are:
         \item[$\rightarrow$] it is ok and less expensive when there is:
         \begin{itemize}
             \item wide space
-            \item need to lacalize few nodes
+            \item need to localize few nodes
         \end{itemize}
         \item[$\rightarrow$] Pro:
         \begin{itemize}
@@ -259,7 +259,7 @@ Characteristics:
     \item Coordinates translation (basics):
     \begin{itemize}
         \item[$\rightarrow$] position of object in space is represented by a matrix M with some rotation/translation submatrices
-        \item[$\rightarrow$] given a point $P$, to extract cordinates of a point $P'$\\
+        \item[$\rightarrow$] given a point $P$, to extract coordinates of a point $P'$\\
         $\Rightarrow$ M $\cdot$ (matrix with coordinates of P)
         \item[$\rightarrow$] ARToolKit provides:
         \begin{itemize}
@@ -270,7 +270,7 @@ Characteristics:
             translation matrix $T_c$
         \end{itemize}
     \end{itemize}
-    \item Refernce Systems:
+    \item Reference Systems:
     \begin{itemize}
         \item[$\rightarrow$] with a tag $\rightarrow$ it is possible to superimpose the object\\
         $\rightarrow$ determine its position is determined respect of what you're looking at

@@ -45,7 +45,7 @@ Characteristics:
         \begin{itemize}
             \item $c(x,y)$: link cost from node x to y; initially $= + \infty$
             \item $D(v)$: current value of cost of path from source to destination v
-            \item $p(v)$: predessor node along path from source to destination v
+            \item $p(v)$: predecessor node along path from source to destination v
             \item $N'$: set of node whose least cost path is known
         \end{itemize}
         \newpage
@@ -104,7 +104,7 @@ Differences:\\[0.3cm]
     Wired & Wireless \\
     \begin{minipage}{.45\linewidth}
         \begin{itemize}
-            \item symmetric link\\$\rightarrow$ bidirectinal
+            \item symmetric link\\$\rightarrow$ bidirectional
             \item limited redundancy $\rightarrow$ for\\reliability and load sharing
             \item planned links $\rightarrow$ high QoS,\\fixed topology
             \item[]
@@ -134,7 +134,7 @@ This is because MANETs:
         \item[$\rightarrow$] asymmetric links $\rightarrow$ info about link + quality of link\\
         $\Rightarrow$ different costs depending on the direction
     \end{itemize}
-    \item are innefficient $\rightarrow$ slow convergencee time
+    \item are inefficient $\rightarrow$ slow convergence time
     \item are not robust enough
     \item are non-functional $\rightarrow$ large amount of data not dealing with asymmetric links
     \item could have path length (hop count) $\rightarrow$ which may not be the best metric
@@ -153,7 +153,7 @@ So for a good Unicast Routing Protocol these are all goals:\\[0.3cm]
 \begin{minipage}{.5\linewidth}
     \begin{itemize}
         \item traffic patterns $\rightarrow$ inform nodes on what a node is going to do
-        \item dynamic topology mantainance
+        \item dynamic topology maintenance
         \item no loops
         \item no central authority
         \end{itemize}
@@ -203,7 +203,7 @@ Characteristics:
     \item packets are transmitted according to routing table
     \item each node:
     \begin{itemize}
-        \item[$\rightarrow$] mantains a routing table with entry for each node in the network\\
+        \item[$\rightarrow$] maintains a routing table with entry for each node in the network\\
         $\rightarrow$ <dest\_addr; dest\_seq\_number; next\_hop; hop\_count; install\_time>
         \item[$\rightarrow$] maintains its own sequence number $\Rightarrow$ so it:
         \begin{itemize}
@@ -226,7 +226,7 @@ Characteristics:
         \begin{itemize}
             \item Full dumps:
             \begin{itemize}
-                \item ir carries all routing table information
+                \item it carries all routing table information
                 \item transmitted relatively infrequently
             \end{itemize}
             \item Incremental updates:
@@ -281,8 +281,8 @@ Characteristics:
     \item cons $\rightarrow$ latency or long delay in finding route\\
     RFC\footRFC 3561 not suitable for real-time traffic
     \item route discovery by flooding $\rightarrow$ every node propagates the message\\
-    $\Rightarrow$ assumption of algorithms $\rightarrow$ sender need to know the existance of receiver
-    \item route mantainance procedure is used to repair routes
+    $\Rightarrow$ assumption of algorithms $\rightarrow$ sender need to know the existence of receiver
+    \item route maintenance procedure is used to repair routes
     \item Example: AODV, DRS \dots
 \end{itemize}
 
@@ -309,8 +309,8 @@ Characteristics:
         \item[$\rightarrow$] it reduces obsolete routes $\Rightarrow$ it doesn't require explicit route maintenance
         \item[$\rightarrow$] it minimizes routes from source to destination
     \end{itemize}
-        \item it discovers routes as and when necessary\\$\rightarrow$ path mantained only in involved nodes (routing table)
-        \item routes are mantained as long as necessary
+        \item it discovers routes as and when necessary\\$\rightarrow$ path maintained only in involved nodes (routing table)
+        \item routes are maintained as long as necessary
         \item nodes have a unique dest\_seq\_num\\$\Rightarrow$ it is increased
         for every change in neighbourhood topology
     \item it utilizes a routing table to store routing informations $\rightarrow$ there are 2 types:
@@ -321,7 +321,7 @@ Characteristics:
     \end{itemize}
     \item route table stores $\rightarrow$ <dest\_add; next\_hop\_add; dest\_seq\_num; life\_time>
     $\rightarrow$ life\_time $\rightarrow$ used as expiring time $\rightarrow$ updated each time route is used
-    \item each node maintains list of precursor nodes for each destination to route to\\$\Rightarrow$ help in route mantainance
+    \item each node maintains list of precursor nodes for each destination to route to\\$\Rightarrow$ help in route maintenance
     \newpage
     \item how route discovery works ($\Rightarrow$ node wishes to send a packet):
     \begin{enumerate}
@@ -529,7 +529,7 @@ Differences:
                 \addtolength{\itemindent}{-0.5cm}
                 \item source route in packet headers \newline\hspace*{-0.5cm}$\Rightarrow$ especially for small packets 
                 \vspace*{0.15cm}
-                \item routing table mantained only \newline\hspace*{-0.5cm}on source
+                \item routing table maintained only \newline\hspace*{-0.5cm}on source
                 \vspace*{0.15cm}
                 \item lifetime for routes discovery
                 \item[]
@@ -542,7 +542,7 @@ Differences:
                 \addtolength{\itemindent}{-0.5cm}
                 \item only predecessor on each \newline\hspace*{-0.5cm}packet
                 \vspace*{0.15cm}
-                \item routing tables mantained also \newline\hspace*{-0.5cm}on nodes
+                \item routing tables maintained also \newline\hspace*{-0.5cm}on nodes
                 \vspace*{0.15cm}
                 \item no lifetime for routes discovery
                 \item[]

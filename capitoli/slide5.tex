@@ -5,7 +5,7 @@ Characteristics:
     \item aim is to have a common way to allow communication between nodes
     \item it is used in WLAN indoors with various version (n/ac/\dots)\\
     $\rightarrow$ frequency used are unlicensed $\rightarrow$ 2.4/5 GHz, 900 MHz
-    \item WLAN configuration with access point or ad-hoc netowrk
+    \item WLAN configuration with access point or ad-hoc network
     \item it defines both MAC and physical layer (radio frequency, header, size, ack, \dots)
     \item definition of some terms:
     \begin{itemize}
@@ -24,7 +24,7 @@ Characteristics:
         $\rightarrow$ 1 slot $=$ 1 SIFS\\$\rightarrow$ if channel is occupied
         $\Rightarrow$ timer stops and restart from there\\
         $\rightarrow$ if there is a collision $\rightarrow$ CW is increased at max 1024 slots\\
-        $\rightarrow$ when succeding $\rightarrow$ CW reset to the value
+        $\rightarrow$ when succeeding $\rightarrow$ CW reset to the value
         \item[$\rightarrow$] NAV (Network Allocation Vector): time the sender declares to hold\\the medium $\rightarrow$ other
         nodes can go to sleep $\Rightarrow$ sparing energy
     \end{itemize}
@@ -74,7 +74,7 @@ Access methods are:
         \item transmitter waits in the CW
         \item if the channel is:
         \begin{itemize}
-            \item[$\rightarrow$] busy $\rightarrow$ it stops the timer and restarts at the sime time of CW
+            \item[$\rightarrow$] busy $\rightarrow$ it stops the timer and restarts at the same time of CW
             \item[$\rightarrow$] free $\rightarrow$ it begins to transmit (point 5.)
         \end{itemize}
         \item transmitter sends datas (for a max of 33$\mu$s)
@@ -120,7 +120,7 @@ It works similarly as CSMA, but it improves hidden terminal problem (not solved)
         \item transmitter waits in the CW
         \item if the channel is:
         \begin{itemize}
-            \vspace{-0.1cm}\item[$\rightarrow$] busy $\rightarrow$ it stops the timer and restarts at the sime time of CW
+            \vspace{-0.1cm}\item[$\rightarrow$] busy $\rightarrow$ it stops the timer and restarts at the same time of CW
             \vspace{-0.1cm}\item[$\rightarrow$] free $\rightarrow$ it begins to transmit (point 5.)
         \end{itemize}
         \item transmitter sends a RTS to receiver
@@ -326,14 +326,14 @@ Characteristics:
     \item Distributed Fair Scheduling (DFS)
     \begin{itemize}
         \item[$\rightarrow$] it is fully distributed algorithm for achieving weighted
-        fair queueing
+        fair queuing
         \item[$\rightarrow$] it works well on a LAN
         \item[$\rightarrow$] how it works:
         \begin{enumerate}
             \item Chooses backoff intervals proportional to
             packet size/weight
             \item DFS attempts to follow the centralized Self-Clocked
-            Fair Queueing
+            Fair Queuing
         \end{enumerate}
     \end{itemize}
 \end{itemize}

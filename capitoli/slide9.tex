@@ -7,7 +7,7 @@
         \item[$\rightarrow$] useful for safety/public apps 
     \end{itemize}
     \item parts taken from a and b versions
-    \item it use a reserved sequency (5.9GHz)
+    \item it use a reserved frequency (5.9GHz)
     \begin{itemize}
         \item 1000 m of transmission range
         \item 26 Mbps $\rightarrow$ but it can be lower $\rightarrow$ sufficient for
@@ -34,7 +34,7 @@ Introducing the context
         \item[$\rightarrow$] there are some problems:
         \begin{itemize}
             \item multiple transmission $\Rightarrow$ when every node is broadcasting
-            \item possible congestion $\Rightarrow$ alert unuseful $\rightarrow$ crashes
+            \item possible congestion $\Rightarrow$ alert not useful $\rightarrow$ crashes
             still can happen
         \end{itemize}
     \end{itemize}
@@ -71,7 +71,7 @@ For these reason, a system model with these characteristics is introduced:
         \begin{itemize}
             \item it is Urban Multi-hop Broadcasting Protocol
             \item it is used to determine next forwarder
-            \item vehicles which receve alert $\rightarrow$ it emits JS for
+            \item vehicles which receive alert $\rightarrow$ it emits JS for
             an amount of time\\ $\Rightarrow$ proportional to the distance from sender
             \item The last vehicle stopping the JS knows it is the last one\\
             $\rightarrow$ it forwards the alert message
@@ -123,8 +123,8 @@ Characteristics:
         \begin{enumerate}
             \item estimation phase:
             \begin{itemize}
-                \item continuosly run
-                \item time is splitted into rounds
+                \item continuously run
+                \item time is split into rounds
                 \item one hello messages randomly sent every time round
                 \item hello contains
                 \begin{itemize}
